@@ -310,6 +310,28 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
   .edu-card h3 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 0 0 10px; color: var(--text); }
   .edu-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
   @media (max-width: 920px) { .edu-cards { grid-template-columns: 1fr; } }
+  .edu-link { display: inline-block; margin-top: 14px; color: var(--gold-hi); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .blog-head[hidden] { display: none; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .blog-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 12px; }
+  .blog-card h3 { font-family: var(--display); font-size: 26px; font-weight: 600; color: var(--text); }
+  .blog-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+  .blog-card a { margin-top: auto; color: var(--gold-hi); text-decoration: none; font-weight: 600; }
+  .post { max-width: 720px; margin: 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 40px 44px; }
+  .post[hidden] { display: none; }
+  .post h2 { font-size: clamp(34px, 4vw, 48px); margin: 16px 0 8px; }
+  .post-back { color: var(--gold-hi); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .post-body p { color: var(--text); margin-top: 16px; font-size: 17px; line-height: 1.7; }
+  @media (max-width: 920px) { .blog-grid { grid-template-columns: 1fr; } .post { padding: 28px 22px; } }
+  .about-left { display: flex; flex-direction: column; }
+  .weekly { border: 1px dashed var(--line); border-radius: 22px; padding: 26px; min-height: 220px; background: var(--panel); display: flex; flex-direction: column; gap: 14px; }
+  .weekly-body h3 { font-size: 30px; }
+  .weekly-body p { margin-top: 12px; color: var(--text); font-size: 16px; line-height: 1.7; }
+  .weekly-full { min-height: 260px; margin: 0 0 56px; }
+  .about { align-items: stretch; }
+  .about .plate { flex: 1; aspect-ratio: auto; min-height: 460px; }
+  .about .plate img { object-fit: contain; object-position: center bottom; padding: 28px 28px 0; }
+  .weekly-body blockquote { margin: 16px 0 0; padding: 16px 22px; border-left: 2px solid var(--gold); background: rgba(201,161,74,.06); border-radius: 0 14px 14px 0; font-family: var(--display); font-size: 22px; line-height: 1.4; color: var(--text); }
 </style>
 </head>
 <body>
@@ -570,6 +592,7 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
   </section>
 
   <section id="sobre" class="about">
+    <div class="about-left">
     <div class="plate">
       <img src="assets/dr-robe-estendida.png" alt="Dr. Rafael, advogado, de beca">
       <svg viewBox="0 0 200 200" fill="none" stroke="#c9a14a" stroke-width="1.4">
@@ -578,6 +601,7 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
         <circle cx="100" cy="100" r="76" stroke="url(#g2)" stroke-dasharray="2 5"/>
         <text x="100" y="128" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="96" font-weight="500" fill="url(#g2)" stroke="none">R</text>
       </svg>
+    </div>
     </div>
     <div>
       <span class="pill">Sobre o Dr. Rafael</span>
@@ -591,6 +615,16 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
       </div>
     </div>
   </section>
+
+  <div class="weekly weekly-full">
+    <span class="pill">Artigo da semana</span>
+    <div class="weekly-body" id="weekly-body">
+      <h3>Art. 186 do Código Civil</h3>
+      <blockquote>“Aquele que, por ação ou omissão voluntária, negligência ou imprudência, violar direito e causar dano a outrem, ainda que exclusivamente moral, comete ato ilícito.”</blockquote>
+      <p>Esse artigo define o que é ato ilícito. Ele não exige que o dano seja material: um prejuízo exclusivamente moral também conta. Pelo art. 927 do mesmo código, quem comete ato ilícito e causa dano fica obrigado a repará-lo.</p>
+      <p>Na prática, negativações indevidas, cobranças abusivas e ofensas podem justificar um pedido de indenização, desde que haja prova do dano e da relação com a conduta da outra parte. Cada caso tem particularidades, e a análise do seu caso mostra se a situação se encaixa.</p>
+    </div>
+  </div>
 
   <section id="prazos" style="padding-top:20px">
     <div class="head">
@@ -620,19 +654,40 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
       <article class="edu-card">
         <h3>INSS negou o benefício?</h3>
         <p>Leia a carta de decisão com atenção e anote a data em que você recebeu. Em regra, o recurso ao Conselho de Recursos (CRPS) tem prazo de 30 dias, e cada caso tem suas particularidades.</p>
+        <a class="edu-link" href="#post/inss-negou-beneficio">Ler texto completo ↗</a>
       </article>
       <article class="edu-card">
         <h3>Nome negativado sem dívida?</h3>
         <p>Guarde o print da negativação, o protocolo de reclamação no SAC ou no Procon e os comprovantes de pagamento, se houver. Reunir esses documentos cedo ajuda na análise.</p>
+        <a class="edu-link" href="#post/nome-negativado">Ler texto completo ↗</a>
       </article>
       <article class="edu-card">
         <h3>Quanto tempo para cobrar na Justiça?</h3>
         <p>Em regra, a ação por defeito de produto ou serviço tem prazo de 5 anos, pelo Código de Defesa do Consumidor. Já a reparação civil costuma ter prazo de 3 anos, pelo Código Civil.</p>
+        <a class="edu-link" href="#post/prazos-cobrar-justica">Ler texto completo ↗</a>
       </article>
     </div>
     <div class="actions">
       <a class="btn" href="https://www.instagram.com/rafaellc.adv" target="_blank" rel="noopener">Acompanhe no Instagram <span class="arr">↗</span></a>
     </div>
+  </section>
+
+  <section id="blog" style="padding-top:20px">
+    <div class="head blog-head">
+      <div>
+        <span class="pill">Blog</span>
+        <h2>Textos para <em>entender o seu caso</em></h2>
+      </div>
+      <p>Artigos curtos com orientações gerais. Cada caso tem particularidades, e a análise do seu caso mostra o caminho certo.</p>
+    </div>
+    <div class="blog-grid" id="blog-list"></div>
+    <article class="post" id="post-view" hidden>
+      <a class="post-back" href="#blog">← Voltar para o blog</a>
+      <span class="pill" id="post-cat"></span>
+      <h2 id="post-title"></h2>
+      <div class="post-body" id="post-body"></div>
+      <p class="note">Informação geral. Não substitui a análise do seu caso.</p>
+    </article>
   </section>
 
   <section id="duvidas" style="padding-top:20px">
@@ -865,6 +920,72 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
     });
     art.addEventListener('pointerleave', () => { img.style.transform = ''; });
   }
+})();
+</script>
+<script>
+(function () {
+  const POSTS = [
+    {
+      slug: 'inss-negou-beneficio',
+      cat: 'Previdenciário',
+      title: 'INSS negou o benefício: o que fazer primeiro',
+      excerpt: 'Leia a carta com calma, anote a data da ciência e reúna os documentos antes de recorrer.',
+      paras: [
+        'Quando o INSS nega um benefício, o primeiro passo é ler a carta de decisão com calma. Ela costuma informar o motivo da negativa, como falta de tempo de contribuição ou de perícia médica.',
+        'Anote a data em que você recebeu a carta. Em regra, o recurso ao Conselho de Recursos da Previdência Social (CRPS) tem prazo de 30 dias contados dessa ciência, mas o início da contagem e as exceções variam em cada caso.',
+        'Reúna os documentos que comprovam o que você alega, como carteira de trabalho, contribuições e laudos. Uma análise antes de recorrer ajuda a evitar erros de prazo e de pedido.'
+      ]
+    },
+    {
+      slug: 'nome-negativado',
+      cat: 'Consumidor',
+      title: 'Nome negativado sem dívida: quais provas guardar',
+      excerpt: 'Print da negativação, protocolo de reclamação e comprovantes são as primeiras provas a reunir.',
+      paras: [
+        'Quando uma negativação parece indevida, o primeiro passo é guardar as provas. Print da negativação ou da cobrança, a data em que você soube do problema e as mensagens com a empresa entram nessa lista.',
+        'Também vale registrar reclamação no SAC da empresa e, se não resolver, no Procon. O protocolo dessas reclamações é uma prova útil de que você buscou solução antes de ir à Justiça.',
+        'Cada caso tem particularidades. A análise do seu caso mostra se há caminho para retirar o nome dos órgãos de proteção ao crédito e se cabe pedido de indenização.'
+      ]
+    },
+    {
+      slug: 'prazos-cobrar-justica',
+      cat: 'Cível',
+      title: 'Quanto tempo para cobrar na Justiça?',
+      excerpt: 'Os prazos mudam conforme o tipo de pedido. Veja os mais comuns e como eles começam a contar.',
+      paras: [
+        'Os prazos mudam conforme o tipo de pedido. Em regra, a ação por defeito de produto ou serviço tem prazo de 5 anos, conforme o Código de Defesa do Consumidor (art. 27).',
+        'Já o pedido de indenização por reparação civil costuma ter prazo de 3 anos, pelo Código Civil (art. 206, §3º, V). Para cobranças de dívidas em geral, o prazo costuma ser de 10 anos (art. 205).',
+        'Esses números são uma orientação geral. O início da contagem pode mudar conforme a data do fato, do vencimento ou da ciência do problema.'
+      ]
+    }
+  ];
+
+  const list = document.getElementById('blog-list');
+  const head = document.querySelector('#blog .blog-head');
+  const view = document.getElementById('post-view');
+  list.innerHTML = POSTS.map(p =>
+    '<article class="blog-card"><span class="pill">' + p.cat + '</span><h3>' + p.title + '</h3><p>' + p.excerpt + '</p><a href="#post/' + p.slug + '">Ler artigo ↗</a></article>'
+  ).join('');
+
+  function render() {
+    const hash = location.hash;
+    const post = POSTS.find(p => hash === '#post/' + p.slug);
+    if (post) {
+      head.hidden = true;
+      list.hidden = true;
+      view.hidden = false;
+      document.getElementById('post-cat').textContent = post.cat;
+      document.getElementById('post-title').textContent = post.title;
+      document.getElementById('post-body').innerHTML = post.paras.map(t => '<p>' + t + '</p>').join('');
+      document.getElementById('blog').scrollIntoView();
+    } else {
+      head.hidden = false;
+      list.hidden = false;
+      view.hidden = true;
+    }
+  }
+  window.addEventListener('hashchange', render);
+  render();
 })();
 </script>
 </body>

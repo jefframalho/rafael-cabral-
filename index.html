@@ -305,6 +305,11 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
   .frase blockquote { margin: 0; font-family: var(--display); font-size: clamp(24px, 2.6vw, 34px); line-height: 1.25; color: var(--text); }
   .frase figcaption { margin-top: 14px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   @media (max-width: 960px) { .frase { display: none; } }
+  .edu-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0 0 28px; }
+  .edu-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+  .edu-card h3 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 0 0 10px; color: var(--text); }
+  .edu-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+  @media (max-width: 920px) { .edu-cards { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -610,6 +615,20 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
         <h2>Informação para <em>entender seus direitos</em></h2>
       </div>
       <p>Textos e vídeos curtos com orientações gerais sobre INSS, consumidor e direito cível. Cada caso tem particularidades, então o que vale para você depende da análise do seu caso.</p>
+    </div>
+    <div class="edu-cards">
+      <article class="edu-card">
+        <h3>INSS negou o benefício?</h3>
+        <p>Leia a carta de decisão com atenção e anote a data em que você recebeu. Em regra, o recurso ao Conselho de Recursos (CRPS) tem prazo de 30 dias, e cada caso tem suas particularidades.</p>
+      </article>
+      <article class="edu-card">
+        <h3>Nome negativado sem dívida?</h3>
+        <p>Guarde o print da negativação, o protocolo de reclamação no SAC ou no Procon e os comprovantes de pagamento, se houver. Reunir esses documentos cedo ajuda na análise.</p>
+      </article>
+      <article class="edu-card">
+        <h3>Quanto tempo para cobrar na Justiça?</h3>
+        <p>Em regra, a ação por defeito de produto ou serviço tem prazo de 5 anos, pelo Código de Defesa do Consumidor. Já a reparação civil costuma ter prazo de 3 anos, pelo Código Civil.</p>
+      </article>
     </div>
     <div class="actions">
       <a class="btn" href="https://www.instagram.com/rafaellc.adv" target="_blank" rel="noopener">Acompanhe no Instagram <span class="arr">↗</span></a>

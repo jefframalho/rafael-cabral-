@@ -301,6 +301,10 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
   form.lead-form, .contact-card { padding: 24px 20px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+  .frase { align-self: center; margin: 0 0 0 auto; max-width: 420px; padding: 8px 0 8px 24px; border-left: 2px solid var(--gold); }
+  .frase blockquote { margin: 0; font-family: var(--display); font-size: clamp(24px, 2.6vw, 34px); line-height: 1.25; color: var(--text); }
+  .frase figcaption { margin-top: 14px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  @media (max-width: 960px) { .frase { display: none; } }
 </style>
 </head>
 <body>
@@ -336,6 +340,10 @@ footer .big em { font-style: normal; color: var(--gold-hi); }
           <a class="btn ghost" href="#areas">Ver as áreas</a>
         </div>
       </div>
+      <figure class="frase">
+        <blockquote>“Justiça atrasada não é justiça, senão injustiça qualificada.”</blockquote>
+        <figcaption>Rui Barbosa, Oração aos Moços (1921)</figcaption>
+      </figure>
       <div class="art">
         <img src="assets/dr-robe-estendida.png" alt="Retrato do advogado Rafael, de beca">
         <svg viewBox="0 0 360 300" fill="none" stroke="#c9a14a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

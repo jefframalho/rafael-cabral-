@@ -1,0 +1,45 @@
+<!-- Conteúdo: os artigos do escritório. Cada cartão abre o painel de leitura com o texto: data-painel="artigo-..."
+     aponta para o <template> de mesmo nome em src/sections/painel.html. -->
+<section class="secao conteudo s-papel" id="artigos" data-elo="#artigos">
+  <div class="agua conteudo__agua" data-desliza="46"><!-- @secao selo --></div>
+  <div class="caixa conteudo__grade">
+    <div class="foto bandeira conteudo__foto" data-revela="foto">
+      <img src="/img/conteudo-1536.webp" srcset="/img/conteudo-800.webp 800w, /img/conteudo-1536.webp 1536w" sizes="(max-width: 899px) 100vw, 56vw" width="1536" height="1024" alt="" loading="lazy" decoding="async" data-desliza>
+    </div>
+
+    <div class="conteudo__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Conteúdo</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Entender</span></span>
+          <span class="l"><span class="apagado">o direito também protege.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">Textos curtos sobre direitos do dia a dia, em português claro, para você prevenir problemas e decidir melhor.</p>
+      <div class="acoes" data-revela="sobe">
+        <a class="botao" href="#artigos">
+          <span class="botao__txt">Ver os informativos</span>
+          <span class="botao__seta"><!-- @secao seta --></span>
+        </a>
+      </div>
+    </div>
+
+    <p class="rotulo conteudo__rotulo" data-revela="sobe">Artigo da semana</p>
+    <ul class="conteudo__lista" data-revela="grupo">
+<!-- INFORMATIVOS:INICIO -->
+      <li class="artigo" data-seta>
+        <div class="foto artigo__foto">
+          <img src="/img/artigo-civil-640.webp" srcset="/img/artigo-civil-640.webp 640w, /img/artigo-civil-1280.webp 1280w" sizes="(max-width: 899px) 78vw, 310px" width="640" height="360" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="artigo__corpo">
+          <div>
+            <p class="rotulo artigo__tema">Cível</p>
+            <h3 class="artigo__titulo"><button class="artigo__abre" type="button" data-abre="painel" data-painel="artigo-ato-ilicito" aria-haspopup="dialog">Ato ilícito e o dever de reparar o dano</button></h3>
+          </div>
+          <span class="seta artigo__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+        </div>
+      </li>
+<!-- INFORMATIVOS:FIM -->
+    </ul>
+  </div>
+</section>

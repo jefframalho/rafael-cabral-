@@ -1,0 +1,112 @@
+<!-- Painel de leitura: a folha que abre com o detalhe de uma área ou com um artigo. O conteúdo de cada um mora
+     num <template data-painel="nome">; o botão que abre diz o nome em data-painel (src/motion/folha.js copia o
+     conteúdo para dentro do painel). Para uma área ou um artigo novo, copie um <template> e troque o nome. -->
+<dialog class="folha folha--leitura" id="painel" aria-label="Leitura">
+  <div class="folha__fundo" data-fecha></div>
+  <div class="folha__painel painel s-papel" data-lenis-prevent>
+    <button class="seta painel__fecha" type="button" data-fecha aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    <div class="painel__corpo" data-painel-corpo></div>
+  </div>
+</dialog>
+
+<template data-painel="area-previdenciario">
+  <figure class="foto painel__foto"><img src="/img/area-trabalhista-960.webp" width="960" height="640" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Área de atuação</p>
+    <h2 class="painel__titulo">Previdenciário</h2>
+    <p class="texto">Benefícios do INSS negados, cortados ou calculados errado. Confere os dados no CNIS, organiza a prova e leva o pedido até o recurso ao CRPS ou à ação no Juizado Especial Federal.</p>
+    <h3 class="rotulo painel__sub">Do que cuidamos</h3>
+    <ul class="painel__lista">
+      <li>Conferência do CNIS e do tempo de contribuição</li>
+      <li>Auxílio por incapacidade e aposentadoria por invalidez</li>
+      <li>Aposentadoria e revisão de benefícios</li>
+      <li>Recurso ao CRPS, com prazo de 30 dias</li>
+      <li>Ação no Juizado Especial Federal</li>
+    </ul>
+    <div class="painel__quem">
+      <img src="/img/retrato-1-320.webp" width="320" height="400" alt="" decoding="async">
+      <p><strong>Dr. Rafael</strong><span>Advogado responsável pela área</span></p>
+    </div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Previdenciário">
+        <span class="botao__txt">Falar sobre esta área</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+    </div>
+  </div>
+</template>
+
+<template data-painel="area-consumidor">
+  <figure class="foto painel__foto"><img src="/img/area-empresarial-960.webp" width="960" height="640" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Área de atuação</p>
+    <h2 class="painel__titulo">Consumidor</h2>
+    <p class="texto">Cobranças e negativações indevidas, produto ou serviço com defeito e contrato que não foi cumprido. O prazo para ações por defeito, pelo Código de Defesa do Consumidor, é de 5 anos.</p>
+    <h3 class="rotulo painel__sub">Do que cuidamos</h3>
+    <ul class="painel__lista">
+      <li>Cobranças indevidas e negociação de dívidas</li>
+      <li>Nome negativado sem motivo</li>
+      <li>Produto ou serviço com defeito</li>
+      <li>Contrato não cumprido</li>
+      <li>Indenização por dano</li>
+    </ul>
+    <div class="painel__quem">
+      <img src="/img/retrato-1-320.webp" width="320" height="400" alt="" decoding="async">
+      <p><strong>Dr. Rafael</strong><span>Advogado responsável pela área</span></p>
+    </div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Consumidor">
+        <span class="botao__txt">Falar sobre esta área</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+    </div>
+  </div>
+</template>
+
+<template data-painel="area-civil">
+  <figure class="foto painel__foto"><img src="/img/area-civil-960.webp" width="960" height="640" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Área de atuação</p>
+    <h2 class="painel__titulo">Cível</h2>
+    <p class="texto">Ações indenizatórias e regularização de imóveis, com a explicação de cada caminho antes de qualquer decisão. O prazo para reparação civil, pelo Código Civil, é de 3 anos.</p>
+    <h3 class="rotulo painel__sub">Do que cuidamos</h3>
+    <ul class="painel__lista">
+      <li>Ações indenizatórias por dano material e moral</li>
+      <li>Regularização de imóveis</li>
+      <li>Cobranças e contratos do dia a dia</li>
+    </ul>
+    <div class="painel__quem">
+      <img src="/img/retrato-1-320.webp" width="320" height="400" alt="" decoding="async">
+      <p><strong>Dr. Rafael</strong><span>Advogado responsável pela área</span></p>
+    </div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Cível">
+        <span class="botao__txt">Falar sobre esta área</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+    </div>
+  </div>
+</template>
+
+<!-- INFORMATIVOS:INICIO -->
+<template data-painel="artigo-ato-ilicito">
+  <figure class="foto painel__foto"><img src="/img/artigo-civil-1280.webp" width="1280" height="720" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Artigo · Cível</p>
+    <h2 class="painel__titulo">Ato ilícito e o dever de reparar o dano</h2>
+    <div class="texto painel__abre"><p>O Código Civil considera ato ilícito quem causa dano a outra pessoa, ainda que o dano seja exclusivamente moral. Quem pratica o ato fica obrigado a repará-lo.</p>
+<h3>O que diz a lei</h3>
+<p>O artigo 186 do Código Civil trata do ato ilícito. O artigo 927 diz que quem comete ato ilícito tem a obrigação de reparar o dano causado.</p>
+<h3>O que fazer</h3>
+<p>Guarde provas do dano, como documentos, mensagens e registros, e procure orientação antes de tomar qualquer decisão.</p>
+<p><em>Conteúdo informativo. Cada situação pede uma análise própria.</em></p>
+</div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Cível">
+        <span class="botao__txt">Tirar uma dúvida sobre o tema</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+    </div>
+  </div>
+</template>
+<!-- INFORMATIVOS:FIM -->

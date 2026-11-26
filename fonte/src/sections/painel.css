@@ -1,0 +1,30 @@
+/* Painel de leitura (a base das folhas está em menu.css) */
+.folha--leitura .folha__painel { width: min(calc(600 * var(--su)), 100%); }
+/* o botão de fechar acompanha a leitura: preso ao topo do painel, por cima da foto (a margem negativa devolve a altura dele) */
+.painel__fecha { position: sticky; top: calc(18 * var(--su)); z-index: 2; margin: calc(18 * var(--su)) calc(18 * var(--su)) calc(-62 * var(--su)) auto; background: rgb(var(--claro-rgb) / 0.86); border-color: transparent; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--tinta); }
+.painel__fecha .ic { width: calc(20 * var(--su)); height: calc(20 * var(--su)); transition: transform var(--dur-m) var(--sai); }
+:where(html:not(.toque):not(.rolando)) .painel__fecha:hover { background: var(--tinta); color: var(--claro); }
+.painel__foto { height: calc(280 * var(--su)); }
+.painel__foto > img { top: 0; height: 100%; }
+.painel__texto { padding: calc(40 * var(--su)) calc(48 * var(--su)) calc(56 * var(--su)); }
+.painel__titulo { margin: calc(14 * var(--su)) 0 calc(22 * var(--su)); font: 700 calc(38 * var(--su)) / 1.06 var(--display); letter-spacing: -0.025em; color: var(--tinta); text-wrap: balance; }
+.painel__abre { font-size: calc(19 * var(--su)); line-height: 1.5; color: var(--tinta); }
+.painel__sub { margin: calc(36 * var(--su)) 0 calc(8 * var(--su)); }
+.painel__lista li { position: relative; padding: calc(15 * var(--su)) 0 calc(15 * var(--su)) calc(32 * var(--su)); border-bottom: 1px solid var(--fio); color: var(--tinta); line-height: 1.4; }
+.painel__lista li::before { content: ''; position: absolute; left: 0; top: calc(15 * var(--su) + 0.62em); width: calc(16 * var(--su)); height: 1.5px; background: var(--metal-escuro); }
+.painel__parte { margin: calc(32 * var(--su)) 0 calc(10 * var(--su)); font: 600 calc(21 * var(--su)) / 1.25 var(--display); letter-spacing: -0.012em; color: var(--tinta); }
+.painel__nota { margin-top: calc(30 * var(--su)); padding-top: calc(20 * var(--su)); border-top: 1px solid var(--fio); font-size: calc(14 * var(--su)); color: var(--fg-3); }
+.painel__quem { display: flex; align-items: center; gap: calc(16 * var(--su)); margin-top: calc(34 * var(--su)); padding: calc(14 * var(--su)); border-radius: var(--r-peca); background: var(--cartao); }
+.painel__quem img { width: calc(60 * var(--su)); height: calc(72 * var(--su)); object-fit: cover; border-radius: calc(9 * var(--su)); }
+.painel__quem p { display: grid; gap: calc(2 * var(--su)); font-size: var(--t-menor); color: var(--fg-2); }
+.painel__quem strong { font-weight: 600; font-size: calc(17 * var(--su)); color: var(--tinta); }
+.painel .acoes { margin-top: calc(34 * var(--su)); }
+@media (max-width: 899px) {
+  /* no celular a folha de leitura sobe de baixo, com os cantos de cima arredondados */
+  .folha--leitura .folha__painel { inset: auto 0 0 0; width: 100%; max-height: 92svh; border-radius: calc(24 * var(--su)) calc(24 * var(--su)) 0 0; transform: translate3d(0, 100%, 0); }
+  .painel__foto { height: calc(200 * var(--su)); }
+  .painel__texto { padding: calc(28 * var(--su)) 22px calc(40 * var(--su)); }
+  .painel__titulo { font-size: calc(30 * var(--su)); }
+  .painel__abre { font-size: calc(17.5 * var(--su)); }
+  .painel .acoes .botao { width: 100%; }
+}

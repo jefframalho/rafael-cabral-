@@ -1,0 +1,22 @@
+{
+  "name": "taveira-sodre-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "informativos": "node scripts/informativos.mjs",
+    "prebuild": "node scripts/informativos.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/red-hat-display": "5.3.0",
+    "@fontsource-variable/red-hat-text": "5.3.0",
+    "lenis": "1.3.27",
+    "marked": "15.0.7"
+  },
+  "devDependencies": {
+    "vite": "8.3.8"
+  }
+}

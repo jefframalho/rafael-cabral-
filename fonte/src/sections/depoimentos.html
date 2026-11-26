@@ -1,0 +1,77 @@
+<!-- Depoimentos: um trilho de cartões que rola de lado (src/motion/trilho.js). Quantos cartões quiser: os passos
+     (01 de 04) se acertam sozinhos. -->
+<section class="secao depo s-papel" id="depoimentos" data-elo="#sobre">
+  <div class="agua depo__agua" data-desliza="46"><!-- @secao selo --></div>
+  <div class="caixa depo__grade" data-trilho>
+    <div class="foto bandeira depo__foto" data-revela="foto">
+      <img src="/img/depoimentos-1672.webp" srcset="/img/depoimentos-800.webp 800w, /img/depoimentos-1672.webp 1672w" sizes="(max-width: 899px) 100vw, 56vw" width="1672" height="941" alt="" loading="lazy" decoding="async" data-desliza>
+    </div>
+    <p class="depo__placa vidro vidro--escuro rotulo" data-revela="lado" style="--i: 5">Português claro. <br>Do começo ao fim.</p>
+
+    <div class="depo__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Depoimentos</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Confiança</span></span>
+          <span class="l"><span>que se ganha</span></span>
+          <span class="l"><span class="apagado">caso a caso.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">Mais do que clientes, construímos relações de longo prazo. É o retorno de quem confiou um problema à nossa equipe e acompanhou cada etapa de perto.</p>
+    </div>
+
+    <div class="depo__faixa" data-faixa data-revela="grupo" tabindex="0" role="group" aria-label="Depoimentos de clientes: use as setas para passar">
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“Pela primeira vez entendi um contrato antes de assinar. Explicaram cada cláusula e o que ela mudava para a minha empresa.”</p></blockquote>
+          <figcaption><strong>Renata A.</strong><span>Sócia de rede de clínicas</span></figcaption>
+        </figure>
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“Organizaram o nosso RH, do contrato de trabalho ao banco de horas. As dúvidas do dia a dia têm resposta no mesmo dia.”</p></blockquote>
+          <figcaption><strong>Diego F.</strong><span>Diretor industrial</span></figcaption>
+        </figure>
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“Num momento delicado da empresa, tive ao meu lado gente que explicava cada passo e cada risco. Decidi com calma.”</p></blockquote>
+          <figcaption><strong>Sérgio L.</strong><span>Empresário</span></figcaption>
+        </figure>
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“O inventário do meu pai parecia não ter fim. Organizaram os documentos, combinaram os prazos e cumpriram todos.”</p></blockquote>
+          <figcaption><strong>Lúcia M.</strong><span>Professora</span></figcaption>
+        </figure>
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“Atendimento direto com o sócio, sem intermediários. Quando ligo, quem atende já conhece o meu caso.”</p></blockquote>
+          <figcaption><strong>Paulo H.</strong><span>Produtor rural</span></figcaption>
+        </figure>
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“Revisaram os contratos de locação das nossas lojas. Hoje a gente negocia sabendo o que está em jogo.”</p></blockquote>
+          <figcaption><strong>Bianca S.</strong><span>Diretora de expansão</span></figcaption>
+        </figure>
+        <figure class="depo__cartao">
+          <svg class="ic ic--cheio depo__aspas" aria-hidden="true"><use href="#i-aspas"/></svg>
+          <blockquote><p>“Transparência nos honorários desde a primeira reunião. Nenhuma surpresa pelo caminho.”</p></blockquote>
+          <figcaption><strong>André V.</strong><span>Fundador de startup</span></figcaption>
+        </figure>
+    </div>
+
+    <div class="depo__pe" data-revela="sobe">
+      <div class="depo__controles">
+        <button class="seta seta--grande seta--volta" type="button" data-ant aria-label="Depoimentos anteriores"><span class="seta__ic"><!-- @secao seta --></span></button>
+        <button class="seta seta--grande" type="button" data-prox aria-label="Próximos depoimentos"><span class="seta__ic"><!-- @secao seta --></span></button>
+        <div class="passos" aria-hidden="true">
+          <span class="passos__n" data-atual>01</span>
+          <span class="passos__linha"><i></i></span>
+          <span class="passos__t" data-total>04</span>
+        </div>
+      </div>
+      <a class="botao" href="#contato">
+        <span class="botao__txt">Fale com nossa equipe</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+    </div>
+  </div>
+</section>

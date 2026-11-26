@@ -1,0 +1,56 @@
+/* Folhas: o menu e o painel de leitura. A folha é o <dialog> em tela cheia; dentro dela, o fundo escurece a página e
+   o painel desliza da direita (no celular, a leitura sobe de baixo). A abertura é a padrão, curta e sem enfeite: o
+   painel desliza em 0,28 s com tudo já no lugar dentro dele; ao fechar, 0,2 s (o mesmo tempo do src/motion/folha.js). */
+.folha { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; overflow: hidden; }
+.folha::backdrop { background: transparent; }
+.folha__fundo { position: absolute; inset: 0; background: rgb(var(--noite-rgb) / 0.66); opacity: 0; transition: opacity 0.2s ease; cursor: pointer; }
+.folha__painel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(calc(520 * var(--su)), 100%);
+  background: var(--bg);
+  color: var(--fg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 1, 1);
+  box-shadow: calc(-30 * var(--su)) 0 calc(80 * var(--su)) rgb(0 0 0 / 0.35);
+}
+.folha.aberta .folha__fundo { opacity: 1; }
+.folha.aberta .folha__painel { transform: none; transition: transform 0.28s cubic-bezier(0.2, 0, 0, 1); }
+
+/* ── menu ── */
+.menu { display: flex; flex-direction: column; padding: calc(30 * var(--su)) calc(44 * var(--su)) calc(40 * var(--su)); }
+.menu__topo { display: flex; align-items: center; justify-content: space-between; }
+.menu__topo .rotulo { color: var(--fg-3); }
+.menu__fecha .ic { width: calc(20 * var(--su)); height: calc(20 * var(--su)); transition: transform var(--dur-m) var(--sai); }
+:where(html:not(.toque):not(.rolando)) .menu__fecha:hover .ic, :where(html:not(.toque):not(.rolando)) .painel__fecha:hover .ic { transform: rotate(90deg); }
+.menu__nav { display: grid; margin: calc(34 * var(--su)) 0 auto; }
+.menu__nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: calc(13 * var(--su)) 0;
+  border-bottom: 1px solid var(--fio);
+  font: 500 calc(30 * var(--su)) / 1.1 var(--display);
+  letter-spacing: -0.02em;
+  color: rgb(var(--claro-rgb) / 0.9);
+  transition: color var(--dur-s) var(--sai), padding-left var(--dur-m) var(--sai);
+}
+/* o traço de metal entra pela esquerda e o nome anda para dar lugar */
+.menu__nav a::before { content: ''; position: absolute; left: 0; top: 50%; width: calc(22 * var(--su)); height: 2px; background: var(--metal); transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--dur-m) var(--sai); }
+:where(html:not(.toque):not(.rolando)) .menu__nav a:hover, .menu__nav a:focus-visible { color: var(--claro); padding-left: calc(36 * var(--su)); }
+:where(html:not(.toque):not(.rolando)) .menu__nav a:hover::before, .menu__nav a:focus-visible::before { transform: none; }
+.menu__nav a:active, .menu__nav a.tocado { color: var(--metal-claro); padding-left: calc(36 * var(--su)); }
+.menu__nav a:active::before, .menu__nav a.tocado::before { transform: none; }
+.menu__pe { display: grid; gap: calc(22 * var(--su)); margin-top: calc(36 * var(--su)); }
+.menu__pe .botao { width: 100%; }
+.menu__pe ul { display: flex; flex-wrap: wrap; gap: calc(8 * var(--su)) calc(26 * var(--su)); }
+
+@media (max-width: 899px) {
+  .menu { padding: 22px 22px 28px; }
+  .menu__nav { margin-top: 22px; }
+  .menu__nav a { padding: calc(12 * var(--su)) 0; font-size: calc(26 * var(--su)); }
+  .menu__pe { margin-top: 28px; }
+}

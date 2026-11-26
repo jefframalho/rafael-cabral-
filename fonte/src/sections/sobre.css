@@ -1,0 +1,54 @@
+/* Sobre */
+.sobre__grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) calc(640 * var(--su));
+  gap: calc(84 * var(--su));
+  align-items: center;
+}
+.sobre__texto { position: relative; z-index: 1; }
+.sobre .titulo { margin-bottom: calc(34 * var(--su)); }
+.sobre .acoes { margin-top: calc(40 * var(--su)); }
+.sobre__agua { left: calc(50% - 330 * var(--su)); top: calc(34 * var(--su)); }
+
+.sobre__quadro { position: relative; }
+.sobre__foto { height: calc(640 * var(--su)); border-radius: var(--r-foto); }
+.sobre__numeros {
+  position: absolute;
+  inset: auto calc(16 * var(--su)) calc(16 * var(--su));
+  display: grid;
+  grid-template-columns: 0.8fr 0.98fr 1.24fr;
+  padding: calc(26 * var(--su)) 0;
+  border-radius: var(--r-cartao);
+}
+.sobre__numeros li {
+  display: grid;
+  align-content: center;
+  gap: calc(7 * var(--su));
+  padding: 0 calc(24 * var(--su));
+  border-left: 1px solid rgb(var(--tinta-rgb) / 0.16);
+}
+.sobre__numeros li:first-child { border-left: 0; }
+.sobre__numeros .rotulo { letter-spacing: 0.17em; white-space: nowrap; color: rgb(var(--tinta-rgb) / 0.72); line-height: 1.45; }
+.sobre__numeros .numero { color: var(--tinta); }
+.numero--frase { font-size: calc(24 * var(--su)); letter-spacing: -0.01em; text-transform: uppercase; line-height: 1.1; padding: calc(2 * var(--su)) 0; }
+
+@media (max-width: 899px) {
+  .sobre__grade { grid-template-columns: 1fr; gap: calc(40 * var(--su)); }
+  .sobre .titulo { margin-bottom: calc(24 * var(--su)); }
+  .sobre .acoes { margin-top: calc(30 * var(--su)); }
+  .sobre__agua { width: calc(330 * var(--su)); left: auto; right: calc(-110 * var(--su)); top: calc(40 * var(--su)); }
+  .sobre__foto { height: calc(400 * var(--su)); }
+  /* no celular os números descem para a borda de baixo da foto: dois lado a lado e o terceiro na linha de baixo */
+  .sobre__numeros {
+    position: relative;
+    inset: auto;
+    grid-template-columns: 1fr 1fr;
+    margin: calc(-56 * var(--su)) calc(12 * var(--su)) 0;
+    padding: calc(4 * var(--su)) 0;
+  }
+  .sobre__numeros li { align-content: start; gap: calc(6 * var(--su)); padding: calc(18 * var(--su)) calc(20 * var(--su)); }
+  .sobre__numeros li:first-child { align-content: center; }
+  .sobre__numeros li:nth-child(3) { grid-column: 1 / -1; border-left: 0; border-top: 1px solid rgb(var(--tinta-rgb) / 0.14); }
+  .sobre__numeros .rotulo { letter-spacing: 0.13em; }
+  .numero--frase { font-size: calc(22 * var(--su)); }
+}

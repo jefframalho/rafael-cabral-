@@ -1,0 +1,28 @@
+<!-- Menu: a folha que abre pelo botão redondo do topo, com todas as seções e os contatos. -->
+<dialog class="folha" id="menu" aria-label="Menu do site">
+  <div class="folha__fundo" data-fecha></div>
+  <div class="folha__painel menu s-noite" data-lenis-prevent>
+    <div class="menu__topo">
+      <span class="rotulo">Menu</span>
+      <button class="seta menu__fecha" type="button" data-fecha aria-label="Fechar o menu"><svg class="ic" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    </div>
+    <nav class="menu__nav" aria-label="Todas as seções">
+      <a href="#inicio"><span>Início</span></a>
+      <a href="#sobre"><span>Sobre o escritório</span></a>
+      <a href="#areas"><span>Áreas de atuação</span></a>
+      <a href="#equipe"><span>Equipe</span></a>
+      <a href="#artigos"><span>Conteúdo</span></a>
+      <a href="#contato"><span>Contato</span></a>
+    </nav>
+    <div class="menu__pe">
+      <a class="botao botao--claro" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+      <ul>
+        <li><a class="rodape__elo" href="https://wa.me/5588999280941">(88) 99928-0941</a></li>
+        <li><a class="rodape__elo" href="mailto:raffael.advogado@gmail.com?subject=Quero%20falar%20com%20um%20advogado" data-via="email">raffael.advogado@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+</dialog>

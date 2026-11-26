@@ -1,0 +1,87 @@
+/* Área em destaque */
+.destaque__grade {
+  display: grid;
+  grid-template-columns: calc(470 * var(--su)) minmax(0, 1fr);
+  gap: calc(64 * var(--su));
+  align-items: center;
+}
+.destaque .titulo { margin-bottom: calc(32 * var(--su)); }
+.destaque .acoes { margin-top: calc(38 * var(--su)); gap: calc(20 * var(--su)) calc(28 * var(--su)); }
+
+.destaque__quadro { position: relative; height: calc(520 * var(--su)); }
+/* a foto vai da coluna até a borda direita da tela */
+.destaque__foto { position: absolute; inset: 0 calc(-1 * var(--sangra)) 0 0; border-radius: var(--r-foto) 0 0 var(--r-foto); }
+.destaque__prazos {
+  position: absolute;
+  inset: calc(16 * var(--su)) calc(16 * var(--su)) calc(16 * var(--su)) auto;
+  display: grid;
+  width: calc(312 * var(--su));
+  padding: calc(8 * var(--su)) calc(28 * var(--su));
+  border-radius: var(--r-cartao);
+}
+.destaque__prazos li { display: grid; align-content: center; gap: calc(8 * var(--su)); border-top: 1px solid rgb(255 255 255 / 0.2); }
+.destaque__prazos li:first-child { border-top: 0; }
+.destaque__prazos .rotulo { letter-spacing: 0.2em; white-space: nowrap; color: rgb(var(--claro-rgb) / 0.82); }
+.destaque__valor { display: flex; align-items: baseline; justify-content: space-between; gap: calc(16 * var(--su)); }
+.destaque__valor .numero { font-size: calc(50 * var(--su)); color: var(--claro); }
+
+.destaque__pontos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: calc(60 * var(--su));
+}
+.destaque__pontos li {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(20 * var(--su));
+  padding: calc(4 * var(--su)) calc(28 * var(--su));
+  border-left: 1px solid var(--fio);
+}
+.destaque__pontos li:first-child { padding-left: 0; border-left: 0; }
+.destaque__pontos li:last-child { padding-right: 0; }
+.destaque__ladrilho {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: calc(64 * var(--su));
+  height: calc(64 * var(--su));
+  border-radius: var(--r-peca);
+  background: var(--papel-3);
+  color: var(--tinta);
+}
+.destaque__ladrilho .ic { width: calc(28 * var(--su)); height: calc(28 * var(--su)); }
+.destaque__pontos h3 { font: 500 calc(18 * var(--su)) / 1.25 var(--texto); letter-spacing: -0.01em; color: var(--fg); }
+.destaque__pontos p { margin-top: calc(7 * var(--su)); font-size: var(--t-menor); line-height: 1.45; color: var(--fg-2); }
+
+@media (max-width: 1099px) and (min-width: 900px) {
+  .destaque__pontos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(32 * var(--su)) 0; }
+  .destaque__pontos li:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 899px) {
+  .destaque__grade { grid-template-columns: 1fr; gap: calc(32 * var(--su)); }
+  .destaque .titulo { margin-bottom: calc(22 * var(--su)); }
+  .destaque .acoes { margin-top: calc(28 * var(--su)); }
+  .destaque__quadro { height: auto; }
+  .destaque__foto { position: relative; inset: auto; height: calc(232 * var(--su)); margin-right: calc(-1 * var(--ms)); }
+  /* o painel dos prazos desce para baixo da foto, encaixado na borda dela */
+  .destaque__prazos {
+    position: relative;
+    inset: auto;
+    width: auto;
+    margin: calc(-44 * var(--su)) 0 0 calc(12 * var(--su));
+    margin-right: calc(12 * var(--su));
+    padding: calc(4 * var(--su)) calc(22 * var(--su));
+    background: rgb(var(--noite-rgb) / 0.88);
+  }
+  .destaque__prazos li { grid-template-columns: 1fr auto; align-items: center; gap: calc(14 * var(--su)); padding: calc(16 * var(--su)) 0; }
+  .destaque__prazos li > .rotulo { max-width: 14em; white-space: normal; line-height: 1.6; text-wrap: balance; }
+  .destaque__valor { gap: calc(8 * var(--su)); }
+  .destaque__valor .numero { font-size: calc(38 * var(--su)); }
+  .destaque__pontos { grid-template-columns: 1fr; margin-top: calc(30 * var(--su)); }
+  .destaque__pontos li { padding: calc(16 * var(--su)) 0; border-left: 0; border-top: 1px solid var(--fio); gap: calc(16 * var(--su)); }
+  .destaque__pontos li:first-child { border-top: 0; padding-top: 0; }
+  .destaque__pontos li:last-child { padding-bottom: 0; }
+  .destaque__ladrilho { width: calc(52 * var(--su)); height: calc(52 * var(--su)); }
+  .destaque__ladrilho .ic { width: calc(24 * var(--su)); height: calc(24 * var(--su)); }
+  .destaque__pontos h3 { font-size: calc(17 * var(--su)); }
+}

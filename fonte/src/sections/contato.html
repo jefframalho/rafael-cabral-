@@ -1,0 +1,99 @@
+<!-- Contato: três caminhos (WhatsApp, telefone, e-mail) e o endereço com o mapa. Os números, o e-mail e o endereço
+     são de exemplo: troque aqui e no rodapé. data-via marca os links que recebem o assunto escolhido numa área
+     (src/motion/contato.js). O mapa é um desenho ornamental, sem ruas reais. -->
+<section class="secao contato s-papel" id="contato" data-elo="#contato">
+  <div class="agua contato__agua" data-desliza="46"><!-- @secao selo --></div>
+  <div class="caixa contato__grade">
+    <div class="contato__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Fale conosco</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Se algo não saiu</span></span>
+          <span class="l"><span class="apagado">como deveria, eu posso ajudar.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">Benefício do INSS negado, nome negativado indevidamente, produto com defeito, contrato não cumprido, dano que precisa de indenização ou prazo que está correndo. Conte o caso pelo WhatsApp ou pelo e-mail.</p>
+
+      <p class="contato__assunto" data-assunto-aviso hidden>
+        <span>Assunto: <strong data-assunto-nome></strong></span>
+        <button type="button" data-assunto-tira aria-label="Tirar o assunto"><svg class="ic" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+      </p>
+
+      <ul class="contato__vias" data-revela="grupo">
+        <li>
+          <a class="via via--cheia" href="https://wa.me/5588999280941?text=Ol%C3%A1!%20Quero%20falar%20com%20um%20advogado." target="_blank" rel="noopener" data-via="whats" data-seta>
+            <svg class="ic via__ic" aria-hidden="true"><use href="#i-conversa"/></svg>
+            <h3 class="via__nome">Falar no WhatsApp</h3>
+            <p class="via__txt">Envie seus documentos e a sua história por aqui.</p>
+            <span class="seta via__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+          </a>
+        </li>
+        <li>
+          <a class="via" href="https://instagram.com/rafaellc.adv" target="_blank" rel="noopener" data-seta>
+            <svg class="ic via__ic" aria-hidden="true"><use href="#i-fone"/></svg>
+            <h3 class="via__nome">Siga no Instagram</h3>
+            <p class="via__txt"><span class="via__dado">@rafaellc.adv</span>Conteúdo e novidades do escritório.</p>
+            <span class="seta via__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+          </a>
+        </li>
+        <li>
+          <a class="via" href="mailto:raffael.advogado@gmail.com?subject=Quero%20falar%20com%20um%20advogado" data-via="email" data-seta>
+            <svg class="ic via__ic" aria-hidden="true"><use href="#i-carta"/></svg>
+            <h3 class="via__nome">Enviar um e-mail</h3>
+            <p class="via__txt"><span class="via__dado">raffael.advogado<wbr>@gmail.com</span>Envie o caso por escrito.</p>
+            <span class="seta via__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="contato__garantias" data-revela="sobe">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-cadeado"/></svg><span class="rotulo">Explicação <br>antes de decidir</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-balao"/></svg><span class="rotulo">Só segue com <br>o seu acordo</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-tela"/></svg><span class="rotulo">Presencial em <br>Mauriti, CE</span></li>
+      </ul>
+
+      <p class="contato__frase" data-revela="sobe">“Você entende cada passo do seu caso.”</p>
+    </div>
+
+    <div class="contato__lado">
+      <div class="foto contato__foto" data-revela="foto">
+        <img src="/img/contato-1600.webp" srcset="/img/contato-800.webp 800w, /img/contato-1600.webp 1600w" sizes="(max-width: 899px) 100vw, 56vw" width="1600" height="1000" alt="" loading="lazy" decoding="async" data-desliza>
+      </div>
+
+      <div class="contato__local" data-revela="sobe" style="--i: 3">
+        <div class="contato__onde">
+          <p class="rotulo">Onde estamos</p>
+          <h3 class="contato__perto">Atendimento em Mauriti, CE.</h3>
+          <address class="contato__endereco">
+            <svg class="ic" aria-hidden="true"><use href="#i-pino"/></svg>
+            <span><strong>Mauriti, CE</strong> Região do Cariri<small>Endereço do escritório: [preencher]</small></span>
+          </address>
+          <a class="botao botao--suave contato__mapa" href="https://www.google.com/maps/search/?api=1&amp;query=Mauriti+CE" target="_blank" rel="noopener">
+            <svg class="ic" aria-hidden="true"><use href="#i-mapa"/></svg>
+            <span class="botao__txt">Ver no mapa</span>
+            <span class="botao__seta"><!-- @secao seta --></span>
+          </a>
+        </div>
+        <div class="mapa" aria-hidden="true">
+          <svg class="mapa__ruas" viewBox="0 0 420 340" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <g transform="rotate(-21 210 170)">
+              <g class="mapa__rua">
+                <path d="M-120 20H560M-120 124H560M-120 236H560M-120 338H560"/>
+                <path d="M30 -140V480M158 -140V480M282 -140V480M406 -140V480"/>
+              </g>
+              <g class="mapa__viela">
+                <path d="M-120 72H158M282 180H560M-120 290H158M94 124V236M344 -140V124M220 236V480"/>
+              </g>
+              
+            </g>
+          </svg>
+          <span class="mapa__pino">
+            <span class="mapa__onda"></span>
+            <svg class="mapa__gota" viewBox="0 0 48 60" focusable="false"><path d="M24 58C24 58 4 38.500 4 23.500a20 20 0 0 1 40 0C44 38.500 24 58 24 58z"/></svg>
+            <span class="mapa__selo selo--ouro"><!-- @secao selo --></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

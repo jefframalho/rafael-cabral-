@@ -1,0 +1,78 @@
+/* Depoimentos */
+.depo { --por-vez: 4; --vao: calc(16 * var(--su)); padding-top: 0; }
+.depo__grade { padding-top: calc(96 * var(--su)); }
+.depo__agua { left: calc(50% - 310 * var(--su)); top: calc(20 * var(--su)); }
+.depo__foto { left: 56%; height: calc(360 * var(--su)); }
+.depo__foto > img { object-position: 50% 58%; }
+.depo__placa {
+  position: absolute;
+  right: calc(16 * var(--su));
+  top: calc(196 * var(--su));
+  padding: calc(26 * var(--su)) calc(30 * var(--su)) calc(28 * var(--su));
+  border-radius: var(--r-peca);
+  letter-spacing: 0.3em;
+  line-height: 1.85;
+  color: rgb(var(--claro-rgb) / 0.94);
+}
+.depo__texto { position: relative; z-index: 1; width: 50%; }
+.depo .titulo { margin-bottom: calc(28 * var(--su)); }
+
+.depo__faixa {
+  display: flex;
+  gap: var(--vao);
+  margin-top: calc(40 * var(--su));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border-radius: var(--r-cartao);
+  cursor: grab;
+}
+.depo__faixa::-webkit-scrollbar { display: none; }
+.depo__faixa.puxando { cursor: grabbing; user-select: none; }
+.depo__faixa:focus-visible { outline-offset: 6px; }
+.trilho--parado .depo__faixa { cursor: auto; }
+.depo__cartao {
+  display: flex;
+  flex: 0 0 calc((100% - (var(--por-vez) - 1) * var(--vao)) / var(--por-vez));
+  flex-direction: column;
+  min-height: calc(262 * var(--su));
+  padding: calc(24 * var(--su)) calc(28 * var(--su)) calc(24 * var(--su));
+  border-radius: var(--r-cartao);
+  background: var(--cartao);
+  border: 1px solid rgb(255 255 255 / 0.5);
+}
+.depo__aspas { width: calc(30 * var(--su)); height: calc(30 * var(--su)); margin-left: calc(-4 * var(--su)); color: var(--tinta); }
+.depo__cartao blockquote { margin: calc(10 * var(--su)) 0 calc(20 * var(--su)); font-size: calc(17 * var(--su)); line-height: 1.44; color: rgb(var(--tinta-rgb) / 0.84); }
+.depo__cartao figcaption { display: grid; gap: calc(3 * var(--su)); margin-top: auto; font-size: var(--t-menor); }
+.depo__cartao figcaption::before { content: ''; width: calc(44 * var(--su)); height: 1px; margin-bottom: calc(14 * var(--su)); background: rgb(var(--tinta-rgb) / 0.5); }
+.depo__cartao strong { font-weight: 600; font-size: calc(16 * var(--su)); color: var(--tinta); }
+.depo__cartao figcaption span { color: var(--fg-3); }
+
+.depo__pe { display: flex; align-items: center; justify-content: space-between; gap: calc(24 * var(--su)); margin-top: calc(24 * var(--su)); }
+.depo__controles { display: flex; align-items: center; gap: calc(20 * var(--su)); }
+.depo__controles .passos { margin-left: calc(18 * var(--su)); }
+.depo__controles .passos__linha i { transition: width var(--dur-m) var(--sai); }
+.trilho--parado .depo__controles { visibility: hidden; }
+
+@media (max-width: 1099px) and (min-width: 900px) {
+  .depo { --por-vez: 3; }
+}
+@media (max-width: 899px) {
+  .depo { padding-top: 0; }
+  .depo__grade { display: flex; flex-direction: column; padding-top: 0; }
+  .depo__agua { display: none; }
+  .depo__foto { position: relative; left: auto; height: calc(230 * var(--su)); margin: 0 calc(-1 * var(--ms)) 0 calc(48 * var(--su)); }
+  .depo__placa { right: 0; top: calc(134 * var(--su)); padding: calc(16 * var(--su)) calc(20 * var(--su)); line-height: 1.7; }
+  .depo__texto { width: auto; margin-top: calc(44 * var(--su)); }
+  .depo .titulo { margin-bottom: calc(22 * var(--su)); }
+  /* o trilho sangra até as bordas da tela; cada cartão ocupa quase a tela toda, com o seguinte apontando */
+  .depo__faixa { --vao: calc(10 * var(--su)); margin: calc(30 * var(--su)) calc(-1 * var(--ms)) 0; padding: 0 var(--ms); scroll-padding: 0 var(--ms); border-radius: 0; cursor: auto; }
+  .depo__cartao { flex-basis: calc(300 * var(--su)); min-height: calc(250 * var(--su)); padding: calc(22 * var(--su)); }
+  .depo__cartao blockquote { font-size: calc(16 * var(--su)); }
+  .depo__pe { flex-direction: column; align-items: stretch; gap: calc(26 * var(--su)); margin-top: calc(22 * var(--su)); }
+  .depo__controles { gap: calc(12 * var(--su)); }
+  .depo__controles .seta--grande { width: calc(50 * var(--su)); height: calc(50 * var(--su)); }
+  .depo__controles .passos { margin-left: auto; }
+  .depo__controles .passos__linha { width: calc(90 * var(--su)); }
+  .depo__pe .botao { width: 100%; }
+}

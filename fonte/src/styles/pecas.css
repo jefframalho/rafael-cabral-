@@ -1,0 +1,192 @@
+/* Peças que se repetem: desenhos, selo, botão, elo, seta redonda, vidro, foto, números, passos do carrossel. */
+
+/* ── desenhos de linha ─────────────────────────────────────────────────────────────────────────────────────── */
+.ic {
+  flex: none;
+  width: calc(24 * var(--su));
+  height: calc(24 * var(--su));
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ic--cheio { fill: currentColor; stroke: none; }
+
+/* ── o selo da marca ───────────────────────────────────────────────────────────────────────────────────────── */
+.selo { display: block; width: 100%; height: 100%; overflow: visible; }
+.selo__aro, .selo__fio { fill: none; stroke: currentColor; }
+.selo__aro { stroke-width: 5; }
+.selo__fio { stroke-width: 1.4; }
+.selo__e { fill: currentColor; stroke: none; }
+.selo--ouro .selo__aro, .selo--ouro .selo__fio { stroke: url(#ouro); }
+.selo--ouro .selo__e { fill: url(#ouro); }
+
+/* a marca d'água: o selo gigante atrás do título de cada seção. Os aros se desenham quando a seção chega, e o
+   selo desliza devagar com a rolagem (src/motion/paralaxe.js). */
+.agua {
+  position: absolute;
+  z-index: 0;
+  width: calc(560 * var(--su));
+  aspect-ratio: 1;
+  color: var(--fg);
+  opacity: 0.06;
+  pointer-events: none;
+}
+.agua .selo__aro, .agua .selo__fio { stroke-dasharray: 1; stroke-dashoffset: 0; transform-origin: 120px 120px; transform: rotate(-90deg); }
+html.js:not(.sem-entrada) .agua .selo__aro { stroke-dashoffset: 1; transition: stroke-dashoffset 1.9s var(--vai); }
+html.js:not(.sem-entrada) .agua .selo__fio { stroke-dashoffset: -1; transition: stroke-dashoffset 1.9s var(--vai) 0.12s; }
+html.js:not(.sem-entrada) .agua .selo__e { opacity: 0; transition: opacity 1.3s var(--sai) 0.45s; }
+html.js:not(.sem-entrada) .agua.visto .selo__aro, html.js:not(.sem-entrada) .agua.visto .selo__fio { stroke-dashoffset: 0; }
+html.js:not(.sem-entrada) .agua.visto .selo__e { opacity: 1; }
+
+/* ── botão ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+.botao {
+  --bt-bg: var(--fg);
+  --bt-fg: var(--sobre-fg);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(30 * var(--su));
+  height: calc(54 * var(--su));
+  padding: 0 calc(22 * var(--su)) 0 calc(30 * var(--su));
+  border-radius: 999px;
+  background: var(--bt-bg);
+  color: var(--bt-fg);
+  font: 500 calc(16 * var(--su)) / 1 var(--texto);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform var(--dur-s) var(--sai), box-shadow var(--dur-m) var(--sai);
+}
+/* o brilho que atravessa o botão no hover: uma faixa de metal muito fraca, da esquerda para a direita */
+.botao::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--metal) 46%, transparent) 50%, transparent 80%);
+  transform: translateX(-110%);
+  transition: transform 0.9s var(--sai);
+}
+.botao__txt { transition: transform var(--dur-m) var(--sai); }
+/* a seta sai pela direita e outra entra pela esquerda */
+.botao__seta, .seta__ic { position: relative; display: block; flex: none; overflow: hidden; width: calc(24 * var(--su)); height: calc(24 * var(--su)); }
+.botao__seta .ic, .seta__ic .ic { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform var(--dur-m) var(--sai); }
+.botao__seta .ic + .ic, .seta__ic .ic + .ic { transform: translateX(-130%); }
+.botao--claro { --bt-bg: var(--claro); --bt-fg: var(--tinta); }
+.botao--escuro { --bt-bg: var(--tinta); --bt-fg: var(--claro); }
+
+:where(html:not(.toque):not(.rolando)) .botao:hover::before { transform: translateX(110%); }
+:where(html:not(.toque):not(.rolando)) .botao:hover .botao__txt { transform: translateX(calc(3 * var(--su))); }
+:where(html:not(.toque):not(.rolando)) .botao:hover .botao__seta .ic,
+:where(html:not(.toque):not(.rolando)) .seta:hover .seta__ic .ic,
+:where(html:not(.toque):not(.rolando)) [data-seta]:hover .seta__ic .ic { transform: translateX(130%); }
+:where(html:not(.toque):not(.rolando)) .botao:hover .botao__seta .ic + .ic,
+:where(html:not(.toque):not(.rolando)) .seta:hover .seta__ic .ic + .ic,
+:where(html:not(.toque):not(.rolando)) [data-seta]:hover .seta__ic .ic + .ic { transform: none; }
+.botao:active, .botao.tocado { transform: scale(0.972); }
+.botao:focus-visible { outline-offset: 4px; border-radius: 999px; }
+
+/* ── elo: o link de apoio, com o desenho de documento e a linha por baixo ──────────────────────────────────── */
+.elo {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(14 * var(--su));
+  font-size: calc(16 * var(--su));
+  color: var(--fg);
+}
+.elo__ic {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: calc(40 * var(--su));
+  height: calc(40 * var(--su));
+  border-radius: calc(11 * var(--su));
+  border: 1px solid rgb(var(--fg-rgb) / 0.28);
+  color: var(--fg-2);
+  transition: background-color var(--dur-s) var(--sai), color var(--dur-s) var(--sai), border-color var(--dur-s) var(--sai);
+}
+.elo__ic .ic { width: calc(20 * var(--su)); height: calc(20 * var(--su)); }
+.elo__txt {
+  padding-bottom: calc(5 * var(--su));
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  opacity: 0.86;
+  transition: opacity var(--dur-s) var(--sai);
+}
+:where(html:not(.toque):not(.rolando)) .elo:hover .elo__txt { opacity: 1; animation: elo-linha 0.75s var(--vai); }
+:where(html:not(.toque):not(.rolando)) .elo:hover .elo__ic { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.elo:active .elo__ic, .elo.tocado .elo__ic { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+@keyframes elo-linha {
+  0% { background-size: 100% 1px; background-position: 100% 100%; }
+  45% { background-size: 0% 1px; background-position: 100% 100%; }
+  46% { background-size: 0% 1px; background-position: 0 100%; }
+  100% { background-size: 100% 1px; background-position: 0 100%; }
+}
+
+/* ── seta redonda (cartões, carrossel) ─────────────────────────────────────────────────────────────────────── */
+.seta {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: calc(44 * var(--su));
+  height: calc(44 * var(--su));
+  border-radius: 50%;
+  border: 1px solid rgb(var(--fg-rgb) / 0.42);
+  color: var(--fg);
+  transition: background-color var(--dur-s) var(--sai), color var(--dur-s) var(--sai), border-color var(--dur-s) var(--sai), transform var(--dur-s) var(--sai), opacity var(--dur-s);
+}
+.seta .seta__ic { width: calc(18 * var(--su)); height: calc(18 * var(--su)); }
+.seta--volta .seta__ic { transform: scaleX(-1); }
+.seta--grande { width: calc(58 * var(--su)); height: calc(58 * var(--su)); }
+.seta--grande .seta__ic { width: calc(22 * var(--su)); height: calc(22 * var(--su)); }
+:where(html:not(.toque):not(.rolando)) button.seta:hover,
+:where(html:not(.toque):not(.rolando)) a.seta:hover,
+:where(html:not(.toque):not(.rolando)) [data-seta]:hover .seta { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+button.seta:active, [data-seta]:active .seta, .tocado > .seta, .seta.tocado { transform: scale(0.92); }
+button.seta:disabled { opacity: 0.32; cursor: default; pointer-events: none; }
+
+/* ── vidro ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+.vidro {
+  background: rgb(var(--claro-rgb) / 0.66);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  backdrop-filter: blur(22px) saturate(1.25);
+  border: 1px solid rgb(255 255 255 / 0.46);
+  color: var(--tinta);
+  box-shadow: 0 calc(24 * var(--su)) calc(60 * var(--su)) calc(-28 * var(--su)) rgb(0 0 0 / 0.45);
+}
+.vidro--escuro {
+  background: rgb(var(--noite-rgb) / 0.56);
+  border-color: rgb(255 255 255 / 0.2);
+  color: var(--claro);
+}
+/* sem backdrop-filter, o vidro fica mais cheio para o texto continuar legível */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vidro { background: rgb(var(--claro-rgb) / 0.9); }
+  .vidro--escuro { background: rgb(var(--noite-rgb) / 0.86); }
+}
+
+/* ── foto (a moldura recorta; a imagem tem sobra para deslizar com a rolagem) ──────────────────────────────── */
+.foto { position: relative; overflow: hidden; background: var(--papel-3); }
+.foto > img { position: absolute; left: 0; top: -7%; width: 100%; height: 114%; object-fit: cover; will-change: translate; }
+/* a bandeira: foto presa ao canto de cima da seção, sangrando até a borda direita da tela */
+.bandeira { position: absolute; top: 0; right: calc(-1 * var(--sangra)); border-radius: 0 0 0 var(--r-foto); }
+
+/* ── números ───────────────────────────────────────────────────────────────────────────────────────────────── */
+.numero {
+  font: 700 var(--t-numero) / 1 var(--display);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* ── passos do carrossel: ‹ 01 ━━── 06 › ───────────────────────────────────────────────────────────────────── */
+.passos { display: flex; align-items: center; gap: calc(14 * var(--su)); font: 500 calc(14 * var(--su)) / 1 var(--texto); font-variant-numeric: tabular-nums; letter-spacing: 0.06em; color: var(--fg-2); }
+.passos__n { color: var(--fg); min-width: 2ch; }
+.passos__linha { position: relative; display: block; width: calc(150 * var(--su)); height: 2px; border-radius: 2px; background: rgb(var(--fg-rgb) / 0.22); overflow: hidden; }
+.passos__linha i { position: absolute; inset: 0; width: var(--fatia, 25%); border-radius: 2px; background: var(--fg); transform: translateX(calc(var(--pos, 0) * 100%)); transition: transform var(--dur-m) var(--sai), width var(--dur-m) var(--sai); }
+
+/* ── cabeçalho de seção (rótulo + título) ──────────────────────────────────────────────────────────────────── */
+.cabeca .rotulo { margin-bottom: calc(22 * var(--su)); }
+.acoes { display: flex; flex-wrap: wrap; align-items: center; gap: calc(22 * var(--su)) calc(34 * var(--su)); }

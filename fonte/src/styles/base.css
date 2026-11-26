@@ -1,0 +1,151 @@
+/* Base: o zerado, a tipografia e as peças que todas as seções repetem (caixa, rótulo, título, texto). */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--noite);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(96 * var(--su));
+}
+body {
+  margin: 0;
+  font-family: var(--texto);
+  font-size: var(--t-corpo);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--tinta);
+  background: var(--papel);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+/* com um painel aberto a página não rola; --barra devolve a largura da barra de rolagem que sumiu */
+html.travado { overflow: hidden; }
+html.travado body { padding-right: var(--barra, 0px); }
+
+img, svg, video { display: block; max-width: 100%; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+address { font-style: normal; }
+
+:focus-visible { outline: 2px solid var(--metal); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--metal); color: var(--tinta); }
+
+.desenhos { position: absolute; width: 0; height: 0; overflow: hidden; }
+.so-leitor {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.pular {
+  position: fixed; left: 16px; top: 16px; z-index: 200; padding: 12px 18px; border-radius: 999px;
+  background: var(--claro); color: var(--tinta); font-weight: 500; transform: translateY(-200%);
+  transition: transform var(--dur-s) var(--sai);
+}
+.pular:focus-visible { transform: none; }
+
+/* ── seção e caixa ─────────────────────────────────────────────────────────────────────────────────────────── */
+main { position: relative; }
+/* as seções passam por cima do hero preso: cada uma é uma folha opaca */
+.secao {
+  position: relative;
+  z-index: 1;
+  padding: var(--folga) 0;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: clip;
+}
+/* camadas (src/motion/gruda.js): a seção prende quando o pé dela chega ao pé da tela e a seguinte sobe por cima.
+   --alt é a altura dela, posta pelo JS; sem ele, a seção prende pelo topo. */
+.gruda { position: sticky; top: min(0px, calc(100svh - var(--alt, 100svh))); }
+.veu { position: absolute; inset: 0; z-index: 5; background: var(--noite); opacity: 0; pointer-events: none; }
+.caixa {
+  position: relative;
+  width: min(var(--largura), 100% - 2 * var(--ms));
+  margin-inline: auto;
+}
+
+/* ── tipografia ────────────────────────────────────────────────────────────────────────────────────────────── */
+.rotulo {
+  font: 500 var(--t-rotulo) / 1.5 var(--texto);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+.titulo {
+  font: 700 var(--t-titulo) / 1.04 var(--display);
+  letter-spacing: -0.022em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-wrap: balance;
+}
+.titulo .apagado, .apagado { color: var(--fg-3); }
+/* cada linha do título é uma máscara: a linha sobe de dentro dela. A folga (padding devolvido por margem) guarda
+   os acentos e a cedilha, que passam da caixa da linha; a peça que se move leva a mesma folga, para a camada dela
+   não cortar a tinta no meio do movimento. */
+.l {
+  display: block;
+  overflow: hidden;
+  overflow: clip;
+  padding: 0.22em 0.08em 0.16em;
+  margin: -0.22em -0.08em -0.16em;
+}
+.l > span {
+  display: block;
+  padding: 0.22em 0.08em 0.16em;
+  margin: -0.22em -0.08em -0.16em;
+}
+.texto { color: var(--fg-2); max-width: 33em; text-wrap: pretty; }
+.texto + .texto { margin-top: 1.05em; }
+.texto strong { font-weight: 500; color: var(--fg); }
+
+/* ── entradas (src/motion/revela.js põe .visto quando a peça chega à tela) ─────────────────────────────────── */
+html.js:not(.sem-entrada) [data-revela] {
+  transition:
+    opacity var(--dur-m) var(--sai) calc(var(--i, 0) * 70ms),
+    transform var(--dur-l) var(--sai) calc(var(--i, 0) * 70ms),
+    visibility 0s;
+}
+html.js:not(.sem-entrada) [data-revela='sobe'] { opacity: 0; transform: translate3d(0, calc(26 * var(--su)), 0); }
+html.js:not(.sem-entrada) [data-revela='some'] { opacity: 0; }
+html.js:not(.sem-entrada) [data-revela='lado'] { opacity: 0; transform: translate3d(calc(34 * var(--su)), 0, 0); }
+/* foto: abre de baixo para cima enquanto a imagem assenta. O recorte fica na imagem, não na moldura: uma moldura
+   toda recortada não conta como "na tela" para o observador, e a foto nunca entraria. */
+html.js:not(.sem-entrada) [data-revela='foto'] { background: none; }
+html.js:not(.sem-entrada) [data-revela='foto'] > img {
+  clip-path: inset(100% 0 0 0);
+  transform: scale(1.14);
+  transition: clip-path 1.25s var(--sai) calc(var(--i, 0) * 70ms), transform 1.7s var(--sai) calc(var(--i, 0) * 70ms);
+}
+/* título: as linhas sobem, uma depois da outra */
+html.js:not(.sem-entrada) [data-revela='linhas'] .l > span {
+  transform: translate3d(0, 108%, 0);
+  transition: transform var(--dur-l) var(--sai) calc(var(--i, 0) * 70ms + var(--n, 0) * 95ms);
+}
+/* grupo: os filhos entram um depois do outro quando o grupo chega (fileiras de cartões) */
+html.js:not(.sem-entrada) [data-revela='grupo'] > * {
+  opacity: 0;
+  transform: translate3d(0, calc(28 * var(--su)), 0);
+  transition: opacity var(--dur-m) var(--sai) calc(var(--k, 0) * 85ms), transform var(--dur-l) var(--sai) calc(var(--k, 0) * 85ms);
+}
+html.js:not(.sem-entrada) [data-revela='grupo'].visto > * { opacity: 1; transform: none; }
+[data-revela='grupo'] > :nth-child(2) { --k: 1; }
+[data-revela='grupo'] > :nth-child(3) { --k: 2; }
+[data-revela='grupo'] > :nth-child(4) { --k: 3; }
+[data-revela='grupo'] > :nth-child(5) { --k: 4; }
+[data-revela='grupo'] > :nth-child(6) { --k: 5; }
+[data-revela='grupo'] > :nth-child(n + 7) { --k: 6; }
+html.js:not(.sem-entrada) [data-revela].visto { visibility: visible; opacity: 1; transform: none; }
+html.js:not(.sem-entrada) [data-revela='foto'].visto > img { clip-path: inset(0 0 0 0); transform: none; }
+html.js:not(.sem-entrada) [data-revela='linhas'].visto .l > span { transform: none; }
+.l:nth-child(2) { --n: 1; }
+.l:nth-child(3) { --n: 2; }
+.l:nth-child(4) { --n: 3; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

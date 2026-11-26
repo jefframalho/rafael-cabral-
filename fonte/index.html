@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rafael Advocacia · Direito claro, com o caminho explicado</title>
+  <meta name="description" content="Rafael Advocacia, em Mauriti, CE: previdenciário, consumidor e cível, com explicação antes de qualquer decisão. OAB/CE 44.811.">
+  <meta name="theme-color" content="#1b1a18">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- primeira pintura: nunca a página crua. O tema (?tema=) e a cor de fundo ligam aqui, antes de qualquer arquivo;
+       a folha do site vem em <link> (segura a pintura até chegar), nunca pelo JS -->
+  <script>
+    (function () {
+      var d = document.documentElement, q = new URLSearchParams(location.search);
+      var temas = { grafite: '#1b1a18', marinho: '#0f1824', oliva: '#161b16' };
+      var t = q.get('tema');
+      if (!temas[t]) t = 'grafite';
+      d.dataset.tema = t;
+      d.style.backgroundColor = temas[t];
+      d.classList.add('js');
+      if (matchMedia('(hover: none)').matches) d.classList.add('toque');
+      // ?pronto ou movimento reduzido: tudo já no lugar, sem entrada
+      if (q.has('pronto') || matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('sem-entrada');
+      // se o JS não subir em 4 s, o que espera a entrada aparece do jeito normal
+      setTimeout(function () { if (!window.__tsVivo) d.classList.add('sem-entrada'); }, 4000);
+    })();
+  </script>
+  <style>
+    body { margin: 0; }
+    /* nada de transição no primeiro quadro: a trava sai depois de dois quadros (main.js) */
+    html:not(.assentou) *, html:not(.assentou) *::before, html:not(.assentou) *::after { transition: none !important; }
+    /* o que entra pelo motion nasce escondido (só com JS e com movimento) */
+    html.js:not(.sem-entrada) [data-entra], html.js:not(.sem-entrada) [data-revela] { visibility: hidden; }
+  </style>
+  <link rel="stylesheet" href="/src/styles/site.css">
+  <link rel="preload" as="image" href="/img/hero-1672.webp" imagesrcset="/img/hero-960.webp 960w, /img/hero-1672.webp 1672w" imagesizes="100vw" fetchpriority="high">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <!-- @secao icones -->
+  <!-- @secao topo -->
+
+  <main id="conteudo">
+    <!-- @secao hero -->
+    <!-- @secao sobre -->
+    <!-- @secao areas -->
+    <!-- @secao equipe -->
+    <!-- @secao conteudo -->
+    <!-- @secao contato -->
+  </main>
+
+  <!-- @secao rodape -->
+  <!-- @secao menu -->
+  <!-- @secao painel -->
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

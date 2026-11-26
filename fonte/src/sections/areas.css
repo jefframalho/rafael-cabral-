@@ -1,0 +1,70 @@
+/* Áreas de atuação: a seção escura. --colunas é o número de cartões por linha. */
+.areas { --colunas: 3; padding: calc(128 * var(--su)) 0; }
+.areas__agua { left: calc(50% - 300 * var(--su)); top: calc(26 * var(--su)); opacity: 0.05; }
+.areas__topo { display: flex; align-items: flex-end; justify-content: space-between; gap: calc(60 * var(--su)); }
+.areas__lado { display: flex; align-items: center; gap: calc(40 * var(--su)); padding-bottom: calc(6 * var(--su)); }
+.areas__lado .texto { max-width: calc(380 * var(--su)); font-size: calc(18 * var(--su)); color: rgb(var(--claro-rgb) / 0.9); }
+.areas__nota { flex: none; padding-left: calc(40 * var(--su)); border-left: 1px solid var(--fio); letter-spacing: 0.3em; line-height: 1.75; color: var(--fg-3); }
+
+.areas__lista {
+  display: grid;
+  grid-template-columns: repeat(var(--colunas), minmax(0, 1fr));
+  gap: calc(16 * var(--su));
+  margin-top: calc(56 * var(--su));
+}
+.area {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(var(--claro-rgb) / 0.17);
+  border-radius: var(--r-cartao);
+  background: var(--cartao);
+  overflow: hidden;
+  transition: background-color var(--dur-m) var(--sai), border-color var(--dur-m) var(--sai), box-shadow var(--dur-m) var(--sai);
+}
+.area__foto { height: calc(150 * var(--su)); background: var(--noite-2); }
+.area__foto > img { top: 0; height: 100%; transition: transform 1.2s var(--sai), filter var(--dur-m) var(--sai); filter: brightness(0.9); }
+.area__corpo { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: calc(22 * var(--su)) calc(20 * var(--su)) calc(20 * var(--su)); }
+.area__ic { width: calc(28 * var(--su)); height: calc(28 * var(--su)); color: rgb(var(--claro-rgb) / 0.86); transition: color var(--dur-m) var(--sai), transform var(--dur-m) var(--sai); }
+.area__nome { margin-top: calc(16 * var(--su)); font: 600 calc(20 * var(--su)) / 1.14 var(--display); letter-spacing: -0.012em; }
+/* o botão é o nome da área; a área de clique dele cobre o cartão inteiro */
+.area__abre { text-align: left; font: inherit; letter-spacing: inherit; }
+.area__abre::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.area__abre:focus-visible { outline: none; }
+.area:has(.area__abre:focus-visible) { outline: 2px solid var(--metal); outline-offset: 3px; }
+.area__txt { margin: calc(13 * var(--su)) 0 calc(22 * var(--su)); font-size: var(--t-menor); line-height: 1.46; color: var(--fg-2); }
+.area__seta { margin-top: auto; }
+
+:where(html:not(.toque):not(.rolando)) .area:hover { background: color-mix(in srgb, var(--noite-2) 86%, var(--claro)); border-color: rgb(var(--claro-rgb) / 0.4); box-shadow: 0 calc(26 * var(--su)) calc(50 * var(--su)) calc(-30 * var(--su)) rgb(0 0 0 / 0.8); }
+:where(html:not(.toque):not(.rolando)) .area:hover .area__foto > img { transform: scale(1.07); filter: brightness(1.04); }
+:where(html:not(.toque):not(.rolando)) .area:hover .area__ic { color: var(--metal-claro); transform: translateY(calc(-2 * var(--su))); }
+.area:has(.area__abre:active), .area:has(.area__abre.tocado) { background: color-mix(in srgb, var(--noite-2) 80%, var(--claro)); border-color: rgb(var(--claro-rgb) / 0.5); }
+.area:has(.area__abre:active) .area__seta, .area:has(.area__abre.tocado) .area__seta { transform: scale(0.92); background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+.areas__acoes { margin-top: calc(48 * var(--su)); }
+.areas .elo__txt { opacity: 0.92; }
+
+@media (max-width: 1099px) and (min-width: 900px) {
+  .areas { --colunas: 3; }
+  .areas__nota { display: none; }
+}
+@media (max-width: 899px) {
+  .areas { padding: var(--folga) 0; }
+  .areas__agua { width: calc(330 * var(--su)); left: auto; right: calc(-120 * var(--su)); top: calc(30 * var(--su)); }
+  .areas__topo { display: block; }
+  .areas__lado { display: block; margin-top: calc(22 * var(--su)); padding: 0; }
+  .areas__lado .texto { font-size: var(--t-corpo); }
+  .areas__nota { display: none; }
+  /* no celular os cartões viram linhas: a foto pequena à esquerda, o nome e o texto, a seta à direita */
+  .areas__lista { grid-template-columns: 1fr; gap: calc(10 * var(--su)); margin-top: calc(32 * var(--su)); }
+  .area { flex-direction: row; align-items: stretch; border-radius: calc(16 * var(--su)); }
+  .area__foto { flex: none; width: calc(92 * var(--su)); height: auto; min-height: calc(112 * var(--su)); }
+  .area__corpo { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0 calc(12 * var(--su)); padding: calc(14 * var(--su)) calc(14 * var(--su)) calc(14 * var(--su)) calc(16 * var(--su)); }
+  .area__ic { display: none; }
+  .area__nome { grid-column: 1; margin: 0; font-size: calc(18 * var(--su)); }
+  .area__nome br { display: none; }
+  .area__txt { grid-column: 1; margin: calc(6 * var(--su)) 0 0; font-size: calc(14 * var(--su)); line-height: 1.42; }
+  .area__seta { grid-column: 2; grid-row: 1 / span 2; margin: 0; width: calc(38 * var(--su)); height: calc(38 * var(--su)); }
+  .areas__acoes { margin-top: calc(32 * var(--su)); }
+  .areas__acoes .botao { width: 100%; }
+}

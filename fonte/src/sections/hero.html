@@ -1,0 +1,53 @@
+<!-- Hero: a fachada em tela cheia. O carrossel passa pelas áreas de atuação: cada botão da lista é uma área, na mesma
+     ordem das frases de .hero__falas; data-socio diz qual pessoa aparece no cartão (src/motion/hero.js lê tudo daqui). -->
+<section class="hero gruda s-noite" id="inicio" data-hero>
+  <div class="hero__palco">
+    <div class="hero__fundo">
+      <img src="/img/hero-1672.webp" srcset="/img/hero-960.webp 960w, /img/hero-1672.webp 1672w" sizes="100vw" width="1672" height="910" alt="" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero__sombra" aria-hidden="true"></div>
+
+    <div class="hero__cima">
+      <p class="rotulo hero__rotulo" data-entra>Advocacia em Mauriti, CE</p>
+      <h1 class="hero__titulo" data-entra>
+        <span class="l"><span>Direito claro,</span></span>
+        <span class="l"><span>com o caminho</span></span>
+        <span class="l"><span class="apagado">explicado.</span></span>
+      </h1>
+    </div>
+
+    <div class="hero__lado">
+      <div class="hero__falas" data-entra>
+        <p class="hero__fala ativa">INSS e benefícios: conferência do CNIS, auxílio por incapacidade, aposentadoria e recurso ao CRPS.</p>
+        <p class="hero__fala">Cobranças indevidas, nome negativado, produto com defeito e contrato que não foi cumprido.</p>
+        <p class="hero__fala">Ações indenizatórias e regularização de imóveis, com a explicação antes de qualquer decisão.</p>
+      </div>
+      <div class="passos hero__passos" data-entra>
+        <button class="hero__vira hero__vira--volta" type="button" data-volta aria-label="Área anterior"><svg class="ic" aria-hidden="true"><use href="#i-vira"/></svg></button>
+        <span class="passos__n" data-atual>01</span>
+        <span class="passos__linha"><i></i></span>
+        <span class="passos__t" data-total>03</span>
+        <button class="hero__vira" type="button" data-avanca aria-label="Próxima área"><svg class="ic" aria-hidden="true"><use href="#i-vira"/></svg></button>
+      </div>
+    </div>
+
+    <ul class="hero__areas" aria-label="Áreas de atuação">
+      <li data-entra><button class="chip ativo" type="button" data-socio="rafael" aria-pressed="true">Previdenciário</button></li>
+      <li data-entra><button class="chip" type="button" data-socio="rafael" aria-pressed="false">Consumidor</button></li>
+      <li data-entra><button class="chip" type="button" data-socio="rafael" aria-pressed="false">Cível</button></li>
+    </ul>
+
+    <aside class="hero__socio vidro vidro--escuro" data-entra aria-label="Quem responde pela área">
+      <div class="hero__pessoa ativa" data-socio="rafael">
+        <img src="/img/retrato-1-320.webp" width="320" height="400" alt="Retrato do Dr. Rafael" decoding="async">
+        <div class="hero__ficha">
+          <p class="hero__nome">Dr. Rafael</p>
+          <p class="rotulo hero__cargo">Advogado</p>
+          <span class="hero__tempo" aria-hidden="true"><i></i></span>
+          <p class="hero__nota">OAB/CE 44.811</p>
+        </div>
+      </div>
+    </aside>
+    <div class="hero__veu" aria-hidden="true"></div>
+  </div>
+</section>

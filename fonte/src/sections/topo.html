@@ -1,0 +1,33 @@
+<!-- Topo: preso à tela. No hero é transparente (cápsula de vidro só nos links); depois dele vira uma barra escura,
+     que some quando a página desce e volta quando ela sobe (src/motion/topo.js). Os links da cápsula marcam a seção
+     em que a página está: cada um aponta para o id de uma seção. -->
+<header class="topo" data-topo>
+  <div class="topo__barra">
+    <a class="marca" href="#inicio" aria-label="Rafael Advocacia: voltar ao início">
+      <span class="marca__selo selo--ouro"><!-- @secao selo --></span>
+      <span class="marca__nome">
+        <span class="marca__linha">Rafael Cabral</span>
+        <span class="marca__sub">Advocacia</span>
+      </span>
+    </a>
+
+    <nav class="topo__nav" aria-label="Seções do site">
+      <span class="topo__realce" aria-hidden="true"></span>
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#areas">Áreas de atuação</a>
+      <a href="#artigos">Artigos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="topo__fim">
+      <a class="botao botao--claro topo__cta" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+      <button class="topo__menu" type="button" data-abre="menu" aria-haspopup="dialog" aria-controls="menu" aria-label="Abrir o menu">
+        <svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>

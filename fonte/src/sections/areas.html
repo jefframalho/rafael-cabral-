@@ -1,0 +1,67 @@
+<!-- Áreas de atuação: três cartões. Cada um abre o painel de leitura com o detalhe da área: data-painel="area-..."
+     aponta para o <template> de mesmo nome em src/sections/painel.html. -->
+<section class="secao gruda areas s-noite" id="areas" data-elo="#areas">
+  <div class="agua areas__agua" data-desliza="40"><!-- @secao selo --></div>
+  <div class="caixa">
+    <div class="areas__topo">
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Áreas de atuação</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Três áreas,</span></span>
+          <span class="l"><span class="apagado">um especialista para cada problema.</span></span>
+        </h2>
+      </header>
+      <div class="areas__lado" data-revela="sobe" style="--i: 3">
+        <p class="texto">Atendimento em Mauriti e na região do Cariri, e em todo o Brasil, com foco em benefícios do INSS, defesa do consumidor e ações cíveis.</p>
+        <p class="rotulo areas__nota">Explicação antes <br>de qualquer decisão.</p>
+      </div>
+    </div>
+
+    <ul class="areas__lista" data-revela="grupo">
+      <li class="area" data-seta>
+        <div class="foto area__foto">
+          <img src="/img/area-trabalhista-480.webp" srcset="/img/area-trabalhista-480.webp 480w, /img/area-trabalhista-960.webp 960w" sizes="(max-width: 899px) 96px, 210px" width="480" height="320" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="area__corpo">
+          <svg class="ic area__ic" aria-hidden="true"><use href="#i-casa"/></svg>
+          <h3 class="area__nome"><button class="area__abre" type="button" data-abre="painel" data-painel="area-previdenciario" aria-haspopup="dialog">Previdenciário</button></h3>
+          <p class="area__txt">INSS e benefícios: conferência do CNIS, auxílio por incapacidade, aposentadoria e recurso ao CRPS.</p>
+          <span class="seta area__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+        </div>
+      </li>
+      <li class="area" data-seta>
+        <div class="foto area__foto">
+          <img src="/img/area-empresarial-480.webp" srcset="/img/area-empresarial-480.webp 480w, /img/area-empresarial-960.webp 960w" sizes="(max-width: 899px) 96px, 210px" width="480" height="320" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="area__corpo">
+          <svg class="ic area__ic" aria-hidden="true"><use href="#i-escudo"/></svg>
+          <h3 class="area__nome"><button class="area__abre" type="button" data-abre="painel" data-painel="area-consumidor" aria-haspopup="dialog">Consumidor</button></h3>
+          <p class="area__txt">Cobranças e negativações indevidas, produto ou serviço com defeito e contrato não cumprido.</p>
+          <span class="seta area__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+        </div>
+      </li>
+      <li class="area" data-seta>
+        <div class="foto area__foto">
+          <img src="/img/area-civil-480.webp" srcset="/img/area-civil-480.webp 480w, /img/area-civil-960.webp 960w" sizes="(max-width: 899px) 96px, 210px" width="480" height="320" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="area__corpo">
+          <svg class="ic area__ic" aria-hidden="true"><use href="#i-contrato"/></svg>
+          <h3 class="area__nome"><button class="area__abre" type="button" data-abre="painel" data-painel="area-civil" aria-haspopup="dialog">Cível</button></h3>
+          <p class="area__txt">Ações indenizatórias, danos que precisam de reparação e regularização de imóveis.</p>
+          <span class="seta area__seta" aria-hidden="true"><span class="seta__ic"><!-- @secao seta --></span></span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="acoes areas__acoes" data-revela="sobe">
+      <a class="botao botao--claro" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><!-- @secao seta --></span>
+      </a>
+      <a class="elo" href="https://wa.me/5588999280941?text=Ol%C3%A1!%20Quero%20entender%20em%20qual%20%C3%A1rea%20est%C3%A1%20o%20meu%20caso." target="_blank" rel="noopener">
+        <span class="elo__ic"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span>
+        <span class="elo__txt">Não sabe qual é a área do seu caso? Pergunte no WhatsApp.</span>
+      </a>
+    </div>
+  </div>
+</section>

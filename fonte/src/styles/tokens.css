@@ -1,0 +1,139 @@
+/* Tokens da Taveira & Sodré. As cores são papéis (papel, tinta, noite, claro, metal), nunca o nome da cor:
+   ?tema= troca a paleta inteira. Duas unidades de desenho:
+   --u   a escala de cena (só o hero): 1 px de um quadro de 1440 × 810, acompanha a tela nos dois eixos;
+   --su  a escala de site (todas as outras seções): 1 px de verdade a partir de 1280 de largura, só encolhe abaixo. */
+
+:root {
+  /* paleta "grafite" (padrão): papel cinza quente, tinta quase preta, selo em bronze */
+  --papel: #e8e5e0; /* fundo das seções claras */
+  --papel-2: #f1eeea; /* cartão claro sobre o papel */
+  --papel-3: #dcd8d2; /* cartão fundo e ladrilho de ícone */
+  --tinta: #1a1918; /* títulos, botão escuro */
+  --tinta-rgb: 26 25 24;
+  --apoio: #5b5854; /* texto corrido sobre o papel */
+  --cinza: #8c8984; /* a metade apagada dos títulos */
+  --noite: #1b1a18; /* fundo das seções escuras */
+  --noite-rgb: 27 26 24;
+  --noite-2: #242220; /* cartão sobre a noite */
+  --claro: #f5f3ef; /* texto sobre a noite */
+  --claro-rgb: 245 243 239;
+  --apoio-noite: #b7b3ac; /* texto corrido sobre a noite */
+  --cinza-noite: #8f8b85; /* a metade apagada dos títulos sobre a noite */
+  --metal: #c19b6c; /* o selo e os detalhes */
+  --metal-claro: #e9d5ae;
+  --metal-escuro: #8c6a43;
+
+  --u: min(calc(100vw / 1440), calc(100svh / 810), 1.5px);
+  --su: min(1px, calc(100vw / 1280));
+  --m: calc(52 * var(--u)); /* margem lateral do hero */
+  --ms: max(24px, calc(80 * var(--su))); /* margem lateral das seções */
+  --largura: 1280px; /* teto do conteúdo */
+  --folga: calc(150 * var(--su)); /* respiro entre seções */
+  /* a distância da caixa até a borda da tela: é o quanto as fotos sangram para a direita */
+  --sangra: max(var(--ms), calc((100vw - var(--largura)) / 2));
+
+  --display: 'Red Hat Display Variable', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+  --texto: 'Red Hat Text Variable', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+
+  /* tamanhos da escala de site (docs: título 56–64, corpo 16–18, rótulo 12–14) */
+  --t-titulo: calc(60 * var(--su));
+  --t-sub: calc(21 * var(--su));
+  --t-corpo: calc(17 * var(--su));
+  --t-menor: calc(15 * var(--su));
+  --t-rotulo: max(11.5px, calc(12.5 * var(--su)));
+  --t-numero: calc(46 * var(--su));
+
+  --r-foto: calc(28 * var(--su));
+  --r-cartao: calc(20 * var(--su));
+  --r-peca: calc(14 * var(--su));
+
+  /* curvas e tempos da casa (os mesmos do motion, em CSS) */
+  --sai: cubic-bezier(0.22, 1, 0.36, 1);
+  --vai: cubic-bezier(0.65, 0, 0.35, 1);
+  --mola: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --dur-s: 0.32s;
+  --dur-m: 0.65s;
+  --dur-l: 1.05s;
+}
+
+/* "marinho": azul-noite com papel frio e o mesmo bronze */
+html[data-tema='marinho'] {
+  --papel: #e6e8ea;
+  --papel-2: #f0f2f3;
+  --papel-3: #d8dce0;
+  --tinta: #111a26;
+  --tinta-rgb: 17 26 38;
+  --apoio: #4d5764;
+  --cinza: #828b96;
+  --noite: #0f1824;
+  --noite-rgb: 15 24 36;
+  --noite-2: #182332;
+  --claro: #f2f4f6;
+  --claro-rgb: 242 244 246;
+  --apoio-noite: #adb6c1;
+  --cinza-noite: #7f8996;
+  --metal: #c8a878;
+  --metal-claro: #ecd9b4;
+  --metal-escuro: #94734a;
+}
+
+/* "oliva": verde fechado com papel de linho e metal mais dourado */
+html[data-tema='oliva'] {
+  --papel: #e9e7de;
+  --papel-2: #f2f0e8;
+  --papel-3: #dbd9cd;
+  --tinta: #171b16;
+  --tinta-rgb: 23 27 22;
+  --apoio: #54594f;
+  --cinza: #878b7f;
+  --noite: #161b16;
+  --noite-rgb: 22 27 22;
+  --noite-2: #1f251f;
+  --claro: #f3f3ec;
+  --claro-rgb: 243 243 236;
+  --apoio-noite: #b3b7aa;
+  --cinza-noite: #868b7e;
+  --metal: #c6a765;
+  --metal-claro: #ecdba6;
+  --metal-escuro: #8f7340;
+}
+
+@media (max-width: 899px) {
+  :root {
+    --u: calc(100vw / 390);
+    --su: min(1px, calc(100vw / 390));
+    --m: 20px;
+    --ms: 20px;
+    --folga: calc(88 * var(--su));
+    --t-titulo: calc(38 * var(--su));
+    --t-sub: calc(19 * var(--su));
+    --t-corpo: calc(16 * var(--su));
+    --t-menor: calc(15 * var(--su));
+    --t-rotulo: max(11px, calc(12 * var(--su)));
+    --t-numero: calc(36 * var(--su));
+    --r-foto: calc(22 * var(--su));
+    --r-cartao: calc(18 * var(--su));
+  }
+}
+
+/* superfícies: cada uma diz a cor do texto, do texto de apoio, da metade apagada dos títulos e dos fios */
+.s-papel {
+  --fg: var(--tinta);
+  --fg-rgb: var(--tinta-rgb);
+  --fg-2: var(--apoio);
+  --fg-3: var(--cinza);
+  --fio: rgb(var(--tinta-rgb) / 0.14);
+  --bg: var(--papel);
+  --cartao: var(--papel-2);
+  --sobre-fg: var(--claro); /* o texto do botão cheio */
+}
+.s-noite {
+  --fg: var(--claro);
+  --fg-rgb: var(--claro-rgb);
+  --fg-2: var(--apoio-noite);
+  --fg-3: var(--cinza-noite);
+  --fio: rgb(var(--claro-rgb) / 0.16);
+  --bg: var(--noite);
+  --cartao: var(--noite-2);
+  --sobre-fg: var(--tinta);
+}

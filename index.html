@@ -1,992 +1,697 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rafael Advocacia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-/* Plano: fundo quase preto, cartões com borda fina, títulos em serifa com
-   palavras em dourado, botões com degradê dourado e rótulos em pílula.
-   Ilustrações em SVG próprias. */
-:root {
-  --bg: #0b0b0c;
-  --panel: rgba(19,19,21,.5);
-  --panel-2: rgba(24,24,27,.45);
-  --line: #2a2a2e;
-  --gold-hi: #f1d890;
-  --gold: #c9a14a;
-  --gold-lo: #8f6f2c;
-  --text: #f2efe8;
-  --muted: #a7a398;
-  --danger: #e07a6a;
-  --grad: linear-gradient(180deg, #f6dd98 0%, #c9a14a 100%);
-  --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
-  color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 96px; }
-html, body { margin: 0; }
-body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.6; }
-button, input, textarea { font: inherit; color: inherit; }
-a { color: inherit; }
-:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
-h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.08; text-wrap: balance; margin: 0; }
-p { margin: 0; text-wrap: pretty; }
-.gold { color: var(--gold-hi); }
-.pill { display: inline-block; font-size: 12px; letter-spacing: .04em; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.02); }
-.btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; font-weight: 600; font-size: 15px; padding: 13px 24px; border: 0; border-radius: 999px; background: var(--grad); color: #15120a; box-shadow: 0 10px 30px -10px rgba(201,161,74,.6); transition: transform .2s, box-shadow .2s, filter .2s; }
-.btn:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 34px -10px rgba(201,161,74,.75); }
-.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); box-shadow: none; }
-.btn.ghost:hover { border-color: var(--gold); color: var(--gold-hi); }
-.btn .arr { font-size: 16px; }
-
-/* Topo */
-header.top { position: sticky; top: 0; z-index: 20; background: rgba(11,11,12,.5); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-header.top .wrap { max-width: 1160px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-size: 22px; font-weight: 600; }
-.brand .mark { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-items: center; color: var(--gold-hi); font-size: 16px; font-style: italic; }
-nav.menu { display: flex; gap: 26px; font-size: 14px; color: var(--muted); }
-nav.menu a { text-decoration: none; }
-nav.menu a:hover { color: var(--gold-hi); }
-header.top .btn { padding: 10px 18px; font-size: 14px; }
-
-main { max-width: 1160px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-.bg-fx { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.bg-fx video { width: 100%; height: 100%; object-fit: cover; opacity: .45; filter: saturate(.7) contrast(1.05); }
-.bg-fx::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,11,12,.2) 0%, rgba(11,11,12,.55) 60%, rgba(11,11,12,.9) 100%); }
-@media (prefers-reduced-motion: reduce) { .bg-fx video { display: none; } }
-section { padding: 96px 0; }
-.kicker { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-.lead { margin-top: 18px; color: var(--muted); font-size: 17px; max-width: 52ch; }
-
-/* Abertura */
-.hero { padding: 64px 0 56px; }
-.hero .frame { position: relative; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(180deg, rgba(20,20,22,.45), rgba(14,14,16,.35)); padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; overflow: hidden; }
-.hero .frame::before { content: ""; position: absolute; width: 520px; height: 520px; right: -180px; top: -200px; background: radial-gradient(circle, rgba(201,161,74,.18), transparent 60%); pointer-events: none; }
-.hero h1 { font-size: clamp(44px, 5.6vw, 68px); margin-top: 22px; }
-.hero h1 em { font-style: normal; color: var(--gold-hi); }
-.hero .lead { font-size: 18px; }
-.hero .actions { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
-.hero .art { position: relative; border-radius: 22px; border: 1px solid var(--line); background: #0d0d0f; overflow: hidden; aspect-ratio: 4 / 3.4; display: grid; place-items: center; }
-.hero .art svg { display: none; }
-.hero .art { background: transparent; border: 0; box-shadow: none; aspect-ratio: auto; height: 520px; overflow: hidden; border-radius: 22px; }
-@media (max-width: 920px) { .hero .art { height: 480px; } }
-.hero .art img { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); height: 100%; width: auto; max-width: none; object-fit: contain; }
-.hero .art img:hover { filter: drop-shadow(0 0 28px rgba(201,161,74,.18)); }
-.hero .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,13,15,0) 45%, rgba(13,13,15,.9) 100%); }
-.hero .art .cap { z-index: 1; }
-.hero .art .cap { position: absolute; left: 18px; bottom: 16px; font-size: 13px; color: var(--muted); }
-.hero .art .cap b { color: var(--gold-hi); font-weight: 600; }
-
-/* Perfil ao lado do título */
-.strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--panel); margin-top: 26px; }
-.strip div { padding: 22px 22px; border-left: 1px solid var(--line); }
-.strip div:first-child { border-left: 0; }
-.strip b { display: block; font-family: var(--display); font-size: 26px; font-weight: 500; color: var(--gold-hi); line-height: 1; }
-.strip span { display: block; margin-top: 8px; font-size: 14px; color: var(--muted); }
-
-/* Para quem é */
-.head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 42px; }
-.head h2 { font-size: clamp(38px, 4.6vw, 56px); margin-top: 16px; }
-.head h2 em { font-style: normal; color: var(--gold-hi); }
-.head p { color: var(--muted); max-width: 50ch; justify-self: end; }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 28px; transition: border-color .25s, transform .25s; }
-.card:hover { border-color: #4a4130; transform: translateY(-3px); }
-.chip { width: 44px; height: 44px; border-radius: 14px; background: var(--grad); display: grid; place-items: center; margin-bottom: 18px; }
-.chip svg { width: 20px; height: 20px; stroke: #15120a; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.card h3 { font-family: var(--body); font-size: 18px; font-weight: 700; }
-.card p { margin-top: 8px; color: var(--muted); font-size: 15px; }
-
-/* Áreas */
-.areas { display: grid; grid-template-columns: 290px 1fr; gap: 16px; }
-.tablist { display: flex; flex-direction: column; gap: 12px; }
-.tab { text-align: left; cursor: pointer; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px 22px; color: var(--text); transition: border-color .2s, background .2s; }
-.tab .n { font-size: 12px; color: var(--gold); letter-spacing: .1em; }
-.tab b { display: block; font-family: var(--display); font-size: 28px; font-weight: 500; margin-top: 4px; line-height: 1.1; }
-.tab small { display: block; margin-top: 6px; color: var(--muted); font-size: 14px; }
-.tab:hover { border-color: #4a4130; }
-.tab[aria-selected="true"] { border-color: var(--gold); background: linear-gradient(180deg, #1b1a16, #131315); }
-.tab[aria-selected="true"] .n { color: var(--gold-hi); }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 40px 44px; }
-.panel[hidden] { display: none; }
-.panel.anim { animation: rise .32s ease; }
-@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.panel h3 { font-size: 46px; }
-.panel h3 em { font-style: normal; color: var(--gold-hi); }
-.panel .lede { margin-top: 12px; color: var(--muted); max-width: 60ch; font-size: 17px; }
-.cols { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-.cols h4 { margin: 0 0 12px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-.cols ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
-.cols li { padding-left: 24px; position: relative; color: var(--text); }
-.cols li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--grad); }
-.deadline { margin-top: 26px; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; background: #0e0e10; }
-.deadline b { font-family: var(--display); font-size: 42px; font-weight: 500; color: var(--gold-hi); line-height: 1; }
-.deadline span { font-size: 14px; color: var(--muted); }
-.checklist { margin-top: 22px; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px 12px; }
-.checklist header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.checklist h4 { margin: 0; font-size: 15px; font-weight: 700; }
-.checklist .count { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.bar { height: 6px; background: #1f1f23; border-radius: 999px; margin: 10px 0; overflow: hidden; }
-.bar i { display: block; height: 100%; width: 0; background: var(--grad); transition: width .3s; }
-.checklist label { display: flex; gap: 12px; align-items: flex-start; padding: 9px 0; border-top: 1px dashed var(--line); cursor: pointer; font-size: 15px; }
-.checklist label:first-of-type { border-top: 0; }
-.checklist input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--gold); flex: none; }
-.checklist label.done span { color: var(--muted); text-decoration: line-through; }
-
-/* Sobre */
-.about { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
-.about .plate { position: relative; border-radius: 26px; border: 1px solid var(--line); background: #0d0d0f; aspect-ratio: 1 / 1; display: grid; place-items: center; overflow: hidden; }
-.about .plate svg { display: none; }
-.about .plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.about h2 { font-size: clamp(38px, 4.4vw, 54px); margin-top: 16px; }
-.about h2 em { font-style: normal; color: var(--gold-hi); }
-.about p { margin-top: 18px; color: var(--muted); }
-.about .facts { margin-top: 28px; display: grid; gap: 12px; }
-.about .facts div { display: flex; gap: 12px; align-items: center; color: var(--text); font-size: 15px; }
-.about .facts i { width: 8px; height: 8px; border-radius: 50%; background: var(--grad); flex: none; }
-
-/* Prazos */
-.deadlines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.dl { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 30px 26px; }
-.dl .big { font-family: var(--display); font-size: 74px; line-height: .9; font-weight: 500; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.dl .big small { font-family: var(--body); font-size: 15px; font-weight: 600; margin-left: 8px; color: var(--muted); -webkit-text-fill-color: var(--muted); }
-.dl h3 { font-family: var(--body); font-size: 17px; font-weight: 700; margin-top: 18px; }
-.dl p { margin-top: 8px; font-size: 14px; color: var(--muted); }
-.note { margin-top: 18px; font-size: 13px; color: var(--muted); }
-
-/* FAQ */
-.faq-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; }
-.faq-wrap h2 { font-size: clamp(38px, 4.4vw, 54px); margin-top: 16px; }
-details.qa { border-top: 1px solid var(--line); }
-details.qa:last-child { border-bottom: 1px solid var(--line); }
-details.qa summary { list-style: none; cursor: pointer; padding: 22px 42px 22px 0; position: relative; font-family: var(--display); font-size: 24px; font-weight: 500; }
-details.qa summary::-webkit-details-marker { display: none; }
-details.qa summary::after { content: "+"; position: absolute; right: 4px; top: 18px; font-family: var(--body); font-size: 26px; color: var(--gold); transition: transform .25s; }
-details.qa[open] summary::after { transform: rotate(45deg); }
-details.qa .ans { padding: 0 0 22px; color: var(--muted); max-width: 64ch; }
-
-/* Contato */
-.contact { display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: stretch; }
-.contact-card { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 34px; display: flex; flex-direction: column; }
-.contact-card h2 { font-size: 46px; margin-top: 14px; }
-.contact-card p.lead { margin-top: 14px; }
-.chans { margin-top: auto; padding-top: 26px; display: grid; gap: 12px; }
-.chan { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 16px; text-decoration: none; background: #0e0e10; transition: border-color .2s; }
-.chan:hover { border-color: var(--gold); }
-.chan .chip { margin: 0; width: 38px; height: 38px; border-radius: 12px; }
-.chan .chip svg { width: 18px; height: 18px; }
-.chan b { display: block; font-size: 14px; color: var(--muted); font-weight: 600; }
-.chan span { font-size: 16px; }
-form.lead-form { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 34px; display: grid; gap: 18px; }
-form.lead-form h3 { font-size: 34px; }
-.lbl { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 8px; }
-.field input, .field textarea { width: 100%; padding: 13px 15px; border: 1px solid var(--line); background: #0d0d0f; border-radius: 14px; font-size: 16px; transition: border-color .2s, box-shadow .2s; }
-.field textarea { min-height: 100px; resize: vertical; }
-.field input::placeholder, .field textarea::placeholder { color: #6c6a63; }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,161,74,.18); }
-.field .err { display: block; font-size: 13px; color: var(--danger); min-height: 1.1em; margin-top: 6px; }
-.field.bad input, .field.bad textarea { border-color: var(--danger); }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.opt { border: 1px solid var(--line); background: #0d0d0f; border-radius: 999px; padding: 9px 16px; font-size: 14px; cursor: pointer; color: var(--muted); transition: all .15s; }
-.opt:hover { color: var(--text); border-color: #4a4130; }
-.opt[aria-pressed="true"] { background: var(--grad); color: #15120a; border-color: transparent; font-weight: 600; }
-.form-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-.form-row small { color: var(--muted); font-size: 13px; }
-.out { display: none; border: 1px solid var(--gold-lo); border-radius: 16px; padding: 18px 20px; background: #0e0e10; }
-.out.show { display: block; animation: rise .3s ease; }
-.out pre { white-space: pre-wrap; margin: 12px 0 16px; font-family: var(--body); font-size: 15px; color: var(--text); }
-.out .form-row { gap: 10px; }
-
-footer { margin-top: 40px; border-top: 1px solid #1c1c20; padding: 22px 0 26px; background: rgba(2,2,3,.4); position: relative; z-index: 2; }
-footer .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
-footer .big { font-family: var(--display); font-size: 30px; color: var(--text); }
-footer .foot-info { display: flex; gap: 6px 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); width: 100%; }
-footer .foot-info a { color: var(--text); text-decoration: none; }
-footer .foot-info a:hover { color: var(--gold-hi); }
-footer .dev { width: 100%; font-size: 13px; color: var(--muted); border-top: 1px solid #1c1c20; padding-top: 14px; }
-footer .dev b { color: var(--gold-hi); font-weight: 600; }
-footer .big em { font-style: normal; color: var(--gold-hi); }
-.mobile-bar { display: none; }
-
-/* Vidro e interação */
-.card, .panel, .contact-card, form.lead-form, .dl, .strip, .deadline, .checklist, .out, .chan, .hero .frame {
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
-  backdrop-filter: blur(14px) saturate(130%);
-}
-.spot { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(241,216,144,.13), transparent 58%), var(--panel); }
-.spot:hover { border-color: rgba(201,161,74,.45); }
-.hero .art img { transition: transform .45s ease; will-change: transform; }
-.chan { transition: border-color .2s, background .2s; }
-.chan:hover { background: rgba(201,161,74,.07); }
-
-/* Fotos do pacote (Pexels) */
-.mini-steps { padding: 22px 22px 14px; border: 1px solid var(--line); border-radius: 18px; background: rgba(13,13,15,.45); display: grid; gap: 14px; }
-.mini-steps h4 { margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-.mini-steps ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
-.mini-steps li { display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: baseline; font-size: 15px; }
-.mini-steps li b { font-family: var(--display); font-size: 24px; font-weight: 500; color: var(--gold-hi); line-height: 1; }
-.mini-steps .place { font-size: 15px; color: var(--muted); padding-top: 12px; border-top: 1px dashed var(--line); }
-.mini-steps .place strong { color: var(--text); font-weight: 600; }
-.tablist .tab { flex: 0 0 auto; }
-.aside-cta { margin-top: auto; padding: 26px; border-radius: 18px; border: 1px solid var(--gold-lo); background: linear-gradient(180deg, rgba(201,161,74,.1), rgba(13,13,15,.5)); }
-.aside-cta h3 { font-size: 30px; margin-top: 10px; }
-.aside-cta p { margin-top: 10px; color: var(--muted); font-size: 15px; }
-.aside-btns { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
-.aside-btns .btn { padding: 11px 18px; font-size: 14px; }
-@media (max-width: 960px) { .aside-cta { display: none; } }
-.hero .art { display: none; }
-.hero .frame { grid-template-columns: 1.1fr .9fr; }
-.quick { display: grid; gap: 12px; align-content: center; }
-.quick .kicker { margin-bottom: 4px; }
-.quick a { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px 20px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(13,13,15,.3); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-decoration: none; font-weight: 600; transition: border-color .2s, transform .2s; }
-.quick a:hover, .quick a:focus-visible { border-color: var(--gold); transform: translateX(4px); outline: none; }
-.quick a small { display: block; font-weight: 400; color: var(--muted); font-size: 14px; margin-top: 4px; }
-.quick .arr { color: var(--gold-hi); }
-@media (max-width: 960px) { .hero .frame { grid-template-columns: 1fr; } }
-.about .plate img { object-fit: contain; object-position: center bottom; padding: 14px 14px 0; }
-.hero .frame { background-image: linear-gradient(90deg, rgba(10,10,12,.78) 0%, rgba(10,10,12,.5) 45%, rgba(10,10,12,.12) 100%), url("assets/foto-capa-dama-da-justica.webp"); background-size: cover; background-position: center; }
-.band { padding: 0 0 40px; }
-.band-img { position: relative; border-radius: 28px; overflow: hidden; min-height: 380px; border: 1px solid var(--line); display: flex; align-items: center; background: url("assets/foto-colunas-classicas.webp") center / cover no-repeat; }
-.band-img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,12,.93), rgba(10,10,12,.55) 70%, rgba(10,10,12,.35)); }
-.band-txt { position: relative; padding: 48px; max-width: 580px; }
-.band-txt h2 { font-size: clamp(34px, 4vw, 50px); margin-top: 14px; }
-.band-txt h2 em { font-style: normal; color: var(--gold-hi); }
-.band-txt p { margin-top: 14px; color: #d6d1c4; }
-.panel { overflow: hidden; }
-.pimg { margin: -40px -44px 30px; height: 230px; overflow: hidden; position: relative; }
-.pimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.contact-card { overflow: hidden; }
-.cimg { display: block; width: calc(100% + 68px); max-width: none; height: 170px; object-fit: cover; margin: -34px -34px 26px; }
-.credits { width: 100%; font-size: 12px; color: var(--muted); line-height: 1.5; }
-@media (max-width: 960px) { .hero .frame { background-image: linear-gradient(180deg, rgba(10,10,12,.9), rgba(10,10,12,.78)), url("assets/foto-dama-da-justica-mobile.webp"); } }
-@media (max-width: 600px) { .pimg { margin: -30px -24px 24px; height: 190px; } .cimg { width: calc(100% + 48px); margin: -24px -24px 22px; } .band-txt { padding: 30px 24px; } }
-
-/* Responsivo */
-@media (max-width: 960px) {
-  section { padding: 72px 0; }
-  .hero .frame { grid-template-columns: 1fr; padding: 36px 26px; gap: 32px; }
-  .head, .about, .areas, .faq-wrap, .contact { grid-template-columns: 1fr; gap: 26px; }
-  .head p { justify-self: start; }
-  .cards { grid-template-columns: repeat(2, 1fr); }
-  .strip { grid-template-columns: repeat(2, 1fr); }
-  .strip div:nth-child(3) { border-left: 0; }
-  .strip div:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .tablist { flex-direction: row; overflow-x: auto; }
-  .tab { flex: 0 0 auto; min-width: 220px; }
-  .deadlines { grid-template-columns: 1fr; }
-  .cols { grid-template-columns: 1fr; gap: 22px; }
-  .panel { padding: 30px 24px; }
-  .panel h3 { font-size: 38px; }
-  nav.menu { display: none; }
-  header.top .btn { display: none; }
-}
-@media (max-width: 600px) {
-  .wrap-pad { padding: 0 14px; }
-  main { padding: 0 16px; }
-  header.top .wrap { padding-left: 16px; padding-right: 16px; }
-  footer .wrap { padding: 0 16px; }
-  .cards { grid-template-columns: 1fr; }
-  .strip { grid-template-columns: 1fr 1fr; }
-  .hero h1 { font-size: 42px; }
-  footer { padding-bottom: 100px; }
-  .mobile-bar { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30; gap: 8px; padding: 6px; border-radius: 999px; background: #17171a; border: 1px solid var(--line); box-shadow: 0 16px 40px -14px rgba(0,0,0,.8); }
-  .mobile-bar a { flex: 1; text-align: center; padding: 12px 8px; border-radius: 999px; text-decoration: none; font-size: 14px; color: var(--text); font-weight: 600; }
-  .mobile-bar a.gold { background: var(--grad); color: #15120a; }
-  .field, .lead-form { min-width: 0; }
-  form.lead-form, .contact-card { padding: 24px 20px; }
-}
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
-  .frase { align-self: center; margin: 0 0 0 auto; max-width: 420px; padding: 8px 0 8px 24px; border-left: 2px solid var(--gold); }
-  .frase blockquote { margin: 0; font-family: var(--display); font-size: clamp(24px, 2.6vw, 34px); line-height: 1.25; color: var(--text); }
-  .frase figcaption { margin-top: 14px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-  @media (max-width: 960px) { .frase { display: none; } }
-  .edu-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 0 0 28px; }
-  .edu-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
-  .edu-card h3 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 0 0 10px; color: var(--text); }
-  .edu-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
-  @media (max-width: 920px) { .edu-cards { grid-template-columns: 1fr; } }
-  .edu-link { display: inline-block; margin-top: 14px; color: var(--gold-hi); text-decoration: none; font-weight: 600; font-size: 15px; }
-  .blog-head[hidden] { display: none; }
-  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .blog-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 12px; }
-  .blog-card h3 { font-family: var(--display); font-size: 26px; font-weight: 600; color: var(--text); }
-  .blog-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
-  .blog-card a { margin-top: auto; color: var(--gold-hi); text-decoration: none; font-weight: 600; }
-  .post { max-width: 720px; margin: 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 40px 44px; }
-  .post[hidden] { display: none; }
-  .post h2 { font-size: clamp(34px, 4vw, 48px); margin: 16px 0 8px; }
-  .post-back { color: var(--gold-hi); text-decoration: none; font-weight: 600; font-size: 15px; }
-  .post-body p { color: var(--text); margin-top: 16px; font-size: 17px; line-height: 1.7; }
-  @media (max-width: 920px) { .blog-grid { grid-template-columns: 1fr; } .post { padding: 28px 22px; } }
-  .about-left { display: flex; flex-direction: column; }
-  .weekly { border: 1px dashed var(--line); border-radius: 22px; padding: 26px; min-height: 220px; background: var(--panel); display: flex; flex-direction: column; gap: 14px; }
-  .weekly-body h3 { font-size: 30px; }
-  .weekly-body p { margin-top: 12px; color: var(--text); font-size: 16px; line-height: 1.7; }
-  .weekly-full { min-height: 260px; margin: 0 0 56px; }
-  .about { align-items: stretch; }
-  .about .plate { flex: 1; aspect-ratio: auto; min-height: 460px; }
-  .about .plate img { object-fit: contain; object-position: center bottom; padding: 28px 28px 0; }
-  .weekly-body blockquote { margin: 16px 0 0; padding: 16px 22px; border-left: 2px solid var(--gold); background: rgba(201,161,74,.06); border-radius: 0 14px 14px 0; font-family: var(--display); font-size: 22px; line-height: 1.4; color: var(--text); }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rafael Advocacia · Direito claro, com o caminho explicado</title>
+  <meta name="description" content="Rafael Advocacia, em Mauriti, CE: previdenciário, consumidor e cível, com explicação antes de qualquer decisão. OAB/CE 44.811.">
+  <meta name="theme-color" content="#1b1a18">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <!-- primeira pintura: nunca a página crua. O tema (?tema=) e a cor de fundo ligam aqui, antes de qualquer arquivo;
+       a folha do site vem em <link> (segura a pintura até chegar), nunca pelo JS -->
+  <script>
+    (function () {
+      var d = document.documentElement, q = new URLSearchParams(location.search);
+      var temas = { grafite: '#1b1a18', marinho: '#0f1824', oliva: '#161b16' };
+      var t = q.get('tema');
+      if (!temas[t]) t = 'grafite';
+      d.dataset.tema = t;
+      d.style.backgroundColor = temas[t];
+      d.classList.add('js');
+      if (matchMedia('(hover: none)').matches) d.classList.add('toque');
+      // ?pronto ou movimento reduzido: tudo já no lugar, sem entrada
+      if (q.has('pronto') || matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('sem-entrada');
+      // se o JS não subir em 4 s, o que espera a entrada aparece do jeito normal
+      setTimeout(function () { if (!window.__tsVivo) d.classList.add('sem-entrada'); }, 4000);
+    })();
+  </script>
+  <style>body{margin:0}html:not(.assentou) *,html:not(.assentou) :before,html:not(.assentou) :after{transition:none!important}html.js:not(.sem-entrada) [data-entra],html.js:not(.sem-entrada) [data-revela]{visibility:hidden}</style>
+  <link rel="preload" as="image" href="./img/hero-1672.webp" imagesrcset="img/hero-960.webp 960w, img/hero-1672.webp 1672w" imagesizes="100vw" fetchpriority="high">
+  <script type="module" crossorigin src="./assets/index-BdvPQQDq.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-C8vfiA66.css">
 </head>
 <body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <!-- Os desenhos do site, uma vez só: <svg class="ic"><use href="#i-seta"/></svg> usa cada um na cor do texto.
+     O degradê "ouro" pinta o selo da marca no topo e no rodapé. -->
+<svg class="desenhos" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="var(--metal-claro)"/>
+      <stop offset="0.5" stop-color="var(--metal)"/>
+      <stop offset="1" stop-color="var(--metal-escuro)"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M3 12h17.5M14 5.5l6.5 6.5-6.5 6.5"/></symbol>
+  <symbol id="i-vira" viewBox="0 0 24 24"><path d="M9.500 5.500 16 12l-6.500 6.500"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M8 9h8M8 12.2h8M8 15.4h5"/></symbol>
+  <symbol id="i-pessoas" viewBox="0 0 24 24"><circle cx="9" cy="8.4" r="3.2"/><path d="M3 19.5c0-3.3 2.7-5.7 6-5.7s6 2.4 6 5.7"/><circle cx="17.2" cy="9.4" r="2.4"/><path d="M16.4 14.2c2.8.2 4.6 2.2 4.6 5"/></symbol>
+  <symbol id="i-grafico" viewBox="0 0 24 24"><path d="M4.5 20v-5.5M9.5 20v-8M14.5 20v-6M19.5 20V10M4.5 9.5l5-3.2 5 2.2 5-4.8M16.3 3.7h3.2v3.2"/></symbol>
+  <symbol id="i-contrato" viewBox="0 0 24 24"><path d="M7 3.5h7l4.5 4.5V19a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.500 19V5A1.5 1.5 0 0 1 7 3.5zM14 3.5V8h4.5M8.500 12h7M8.500 15.500h7"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3.2l7 2.6v5.400c0 4.400-2.900 7.700-7 9.600-4.100-1.900-7-5.200-7-9.600V5.800z"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3.800 11.300 12 4.300l8.200 7M6.200 9.600v9.900h11.600V9.600M10 19.500v-5.200h4v5.200"/></symbol>
+  <symbol id="i-tributo" viewBox="0 0 24 24"><path d="M6.500 3.500h11v17l-2.200-1.500-1.700 1.500-1.600-1.500-1.600 1.500-1.700-1.500-2.200 1.500zM14.700 8.300l-5.400 6"/><circle cx="9.700" cy="8.900" r="1.200"/><circle cx="14.300" cy="13.700" r="1.200"/></symbol>
+  <symbol id="i-conversa" viewBox="0 0 24 24"><path d="M12 3.500a8.500 8.500 0 0 0-7.400 12.700L3.500 20.500l4.500-1.100A8.500 8.500 0 1 0 12 3.500z"/><path d="M9.200 8.400c-.4 3 2.300 6.300 5.900 6.700l1.100-1.500-1.800-1.200-.9.800c-1-.5-1.900-1.400-2.400-2.500l.8-.9-1.100-1.900z"/></symbol>
+  <symbol id="i-fone" viewBox="0 0 24 24"><path d="M6.500 3.800h3l1.400 3.900-1.900 1.400a11 11 0 0 0 5.900 5.900l1.400-1.900 3.900 1.400v3a1.800 1.800 0 0 1-2 1.800C10.700 18.500 5.500 13.300 4.700 5.800a1.800 1.800 0 0 1 1.800-2z"/></symbol>
+  <symbol id="i-carta" viewBox="0 0 24 24"><rect x="3.500" y="5.500" width="17" height="13" rx="2"/><path d="M4.200 7.200 12 13l7.800-5.800"/></symbol>
+  <symbol id="i-pino" viewBox="0 0 24 24"><path d="M12 21s6.500-5.600 6.500-10.600a6.500 6.500 0 0 0-13 0C5.500 15.400 12 21 12 21z"/><circle cx="12" cy="10.300" r="2.300"/></symbol>
+  <symbol id="i-mapa" viewBox="0 0 24 24"><path d="M9 4.500 3.800 6.500v13L9 17.500l6 2 5.200-2v-13L15 6.500zM9 4.500v13M15 6.500v13"/></symbol>
+  <symbol id="i-balao" viewBox="0 0 24 24"><path d="M5 5.500h14a1.500 1.500 0 0 1 1.500 1.500v8a1.500 1.500 0 0 1-1.500 1.500h-7l-4.500 3.500v-3.500H5A1.500 1.500 0 0 1 3.500 15V7A1.500 1.500 0 0 1 5 5.500z"/></symbol>
+  <symbol id="i-cadeado" viewBox="0 0 24 24"><rect x="5.500" y="10.500" width="13" height="9.500" rx="2"/><path d="M8.500 10.500V8a3.500 3.500 0 0 1 7 0v2.500"/></symbol>
+  <symbol id="i-tela" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="11.500" rx="1.500"/><path d="M9 20h6M12 16.500V20"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4.500 8h15M4.500 12h15M4.500 16h15"/></symbol>
+  <symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6.500 6.500l11 11M17.500 6.500l-11 11"/></symbol>
+  <symbol id="i-aspas" viewBox="0 0 24 24"><path d="M4.500 17.500v-4.300c0-3.400 1.900-5.800 4.800-6.700l.6 1.500c-1.600.6-2.400 1.800-2.500 3.300h2.400v6.200zM13.500 17.500v-4.300c0-3.400 1.900-5.800 4.800-6.700l.6 1.500c-1.600.6-2.400 1.800-2.500 3.300h2.400v6.200z"/></symbol>
+</svg>
 
-<div class="bg-fx" aria-hidden="true">
-  <video autoplay muted loop playsinline preload="auto" src="assets/balanca-da-justica.mp4"></video>
-</div>
+  <!-- Topo: preso à tela. No hero é transparente (cápsula de vidro só nos links); depois dele vira uma barra escura,
+     que some quando a página desce e volta quando ela sobe (src/motion/topo.js). Os links da cápsula marcam a seção
+     em que a página está: cada um aponta para o id de uma seção. -->
+<header class="topo" data-topo>
+  <div class="topo__barra">
+    <a class="marca" href="#inicio" aria-label="Rafael Advocacia: voltar ao início">
+      <span class="marca__selo selo--ouro"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</span>
+      <span class="marca__nome">
+        <span class="marca__linha">Rafael</span>
+        <span class="marca__sub">Advocacia</span>
+      </span>
+    </a>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="#inicio"><span class="mark">R</span>Rafael Advocacia</a>
-    <nav class="menu" aria-label="Principal">
+    <nav class="topo__nav" aria-label="Seções do site">
+      <span class="topo__realce" aria-hidden="true"></span>
       <a href="#inicio">Início</a>
-      <a href="#para-quem">Para quem é</a>
-      <a href="#areas">Áreas</a>
       <a href="#sobre">Sobre</a>
-      <a href="#prazos">Prazos</a>
-      <a href="#duvidas">Dúvidas</a>
+      <a href="#areas">Áreas de atuação</a>
+      <a href="#artigos">Artigos</a>
+      <a href="#contato">Contato</a>
     </nav>
-    <a class="btn" href="#contato">Fale com o escritório <span class="arr">↗</span></a>
+
+    <div class="topo__fim">
+      <a class="botao botao--claro topo__cta" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+      <button class="topo__menu" type="button" data-abre="menu" aria-haspopup="dialog" aria-controls="menu" aria-label="Abrir o menu">
+        <svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<main>
-  <section class="hero" id="inicio" style="padding-bottom:40px">
-    <div class="frame">
-      <div>
-        <span class="pill">Mauriti, CE · Atendimento em todo o Brasil</span>
-        <h1>Direito claro, com <em>o caminho explicado</em> desde a primeira conversa</h1>
-        <p class="lead">Antes de tomar qualquer decisão, você entende o que pode ser feito, quais documentos reunir e qual prazo está correndo.</p>
-        <div class="actions">
-          <a class="btn" href="#contato">Fale com o escritório <span class="arr">↗</span></a>
-          <a class="btn ghost" href="#areas">Ver as áreas</a>
+
+  <main id="conteudo">
+    <!-- Hero: a fachada em tela cheia. O carrossel passa pelas áreas de atuação: cada botão da lista é uma área, na mesma
+     ordem das frases de .hero__falas; data-socio diz qual pessoa aparece no cartão (src/motion/hero.js lê tudo daqui). -->
+<section class="hero gruda s-noite" id="inicio" data-hero>
+  <div class="hero__palco">
+    <div class="hero__fundo">
+      <img src="./img/hero-1672.webp" srcset="img/hero-960.webp 960w, img/hero-1672.webp 1672w" sizes="100vw" width="1672" height="910" alt="" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero__sombra" aria-hidden="true"></div>
+
+    <div class="hero__cima">
+      <p class="rotulo hero__rotulo" data-entra>Advocacia em Mauriti, CE</p>
+      <h1 class="hero__titulo" data-entra>
+        <span class="l"><span>Direito claro,</span></span>
+        <span class="l"><span>com o caminho</span></span>
+        <span class="l"><span class="apagado">explicado.</span></span>
+      </h1>
+    </div>
+
+    <div class="hero__lado">
+      <div class="hero__falas" data-entra>
+        <p class="hero__fala ativa">INSS e benefícios: conferência do CNIS, auxílio por incapacidade, aposentadoria e recurso ao CRPS.</p>
+        <p class="hero__fala">Cobranças indevidas, nome negativado, produto com defeito e contrato que não foi cumprido.</p>
+        <p class="hero__fala">Ações indenizatórias e regularização de imóveis, com a explicação antes de qualquer decisão.</p>
+      </div>
+      <div class="passos hero__passos" data-entra>
+        <button class="hero__vira hero__vira--volta" type="button" data-volta aria-label="Área anterior"><svg class="ic" aria-hidden="true"><use href="#i-vira"/></svg></button>
+        <span class="passos__n" data-atual>01</span>
+        <span class="passos__linha"><i></i></span>
+        <span class="passos__t" data-total>03</span>
+        <button class="hero__vira" type="button" data-avanca aria-label="Próxima área"><svg class="ic" aria-hidden="true"><use href="#i-vira"/></svg></button>
+      </div>
+    </div>
+
+    <ul class="hero__areas" aria-label="Áreas de atuação">
+      <li data-entra><button class="chip ativo" type="button" data-socio="rafael" aria-pressed="true">Previdenciário</button></li>
+      <li data-entra><button class="chip" type="button" data-socio="rafael" aria-pressed="false">Consumidor</button></li>
+      <li data-entra><button class="chip" type="button" data-socio="rafael" aria-pressed="false">Cível</button></li>
+    </ul>
+
+    <aside class="hero__socio vidro vidro--escuro" data-entra aria-label="Quem responde pela área">
+      <div class="hero__pessoa ativa" data-socio="rafael">
+        <img src="./img/retrato-1-320.webp" width="320" height="400" alt="Retrato do Dr. Rafael" decoding="async">
+        <div class="hero__ficha">
+          <p class="hero__nome">Dr. Rafael</p>
+          <p class="rotulo hero__cargo">Advogado</p>
+          <span class="hero__tempo" aria-hidden="true"><i></i></span>
+          <p class="hero__nota">OAB/CE 44.811</p>
         </div>
       </div>
-      <figure class="frase">
-        <blockquote>“Justiça atrasada não é justiça, senão injustiça qualificada.”</blockquote>
-        <figcaption>Rui Barbosa, Oração aos Moços (1921)</figcaption>
-      </figure>
-      <div class="art">
-        <img src="assets/dr-robe-estendida.png" alt="Retrato do advogado Rafael, de beca">
-        <svg viewBox="0 0 360 300" fill="none" stroke="#c9a14a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d890"/><stop offset="1" stop-color="#8f6f2c"/></linearGradient></defs>
-          <rect x="40" y="236" width="220" height="28" rx="3" fill="#15150f" stroke="#8f6f2c"/>
-          <rect x="54" y="208" width="196" height="28" rx="3" fill="url(#g)" stroke="none"/>
-          <rect x="34" y="180" width="236" height="28" rx="3" fill="#1b1b1e" stroke="#8f6f2c"/>
-          <line x1="70" y1="194" x2="240" y2="194" stroke-dasharray="4 6" stroke="#8f6f2c"/>
-          <line x1="180" y1="28" x2="180" y2="172" stroke-width="3" stroke="url(#g)"/>
-          <circle cx="180" cy="24" r="6" fill="url(#g)" stroke="none"/>
-          <line x1="100" y1="68" x2="260" y2="68" stroke-width="3" stroke="url(#g)"/>
-          <path d="M100 68 L72 140 M100 68 L128 140" stroke="#c9a14a"/>
-          <path d="M52 140 H148 Q100 176 52 140 Z" fill="#1b1b1e" stroke="url(#g)"/>
-          <path d="M260 68 L232 140 M260 68 L288 140" stroke="#c9a14a"/>
-          <path d="M212 140 H308 Q260 176 212 140 Z" fill="#1b1b1e" stroke="url(#g)"/>
-          <path d="M300 40 L262 150" stroke-width="4" stroke="url(#g)"/>
-          <path d="M262 150 L256 166 L270 158 Z" fill="url(#g)" stroke="none"/>
-        </svg>
-        <span class="cap"><b>Análise antes da decisão.</b> Sem pressa, sem promessa.</span>
-      </div>
-    </div>
-    <div class="strip">
-      <div><b>3</b><span>áreas de atuação</span></div>
-      <div><b>OAB/CE</b><span>44.811, advogado inscrito</span></div>
-      <div><b>Mauriti</b><span>atendimento presencial</span></div>
-      <div><b>Todo Brasil</b><span>atendimento em todo o país</span></div>
-    </div>
-  </section>
+    </aside>
+    <div class="hero__veu" aria-hidden="true"></div>
+  </div>
+</section>
 
-  <section id="para-quem" style="padding-top:20px">
-    <div class="head">
-      <div>
-        <span class="pill">Para quem é</span>
-        <h2>Se algo <em>não saiu como deveria</em>, eu posso ajudar</h2>
+    <!-- Sobre: texto à esquerda, a foto à direita com os números num painel de vidro por cima. -->
+<section class="secao gruda sobre s-papel" id="sobre" data-elo="#sobre">
+  <div class="agua sobre__agua" data-desliza="46"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</div>
+  <div class="caixa sobre__grade">
+    <div class="sobre__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Sobre o escritório</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Explicação antes</span></span>
+          <span class="l"><span>de qualquer</span></span>
+          <span class="l"><span class="apagado">decisão.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">O Rafael Advocacia atende em Mauriti, CE, na região do Cariri e em todo o Brasil. Se algo não saiu como deveria, o escritório pode ajudar: você conta o caso, a análise confere documentos, prazos e caminhos, e a decisão vem com a explicação de cada opção.</p>
+      <p class="texto" data-revela="sobe">Nenhum passo segue sem o seu acordo. Como diz Rui Barbosa, a justiça atrasada não é justiça.</p>
+      <div class="acoes" data-revela="sobe">
+        <a class="botao" href="#contato">
+          <span class="botao__txt">Conte o seu caso</span>
+          <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+        </a>
+        <a class="elo" href="#equipe">
+          <span class="elo__ic"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span>
+          <span class="elo__txt">Conheça o advogado</span>
+        </a>
       </div>
-      <p>Não precisa ter certeza do que aconteceu. Basta contar a situação. A análise inicial mostra se há caminho e quais opções existem.</p>
     </div>
-    <div class="cards">
-      <article class="card">
-        <div class="chip"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 6h6l-3-6zM17 7l-3 6h6l-3-6z"/></svg></div>
-        <h3>Benefício do INSS negado</h3>
-        <p>Aposentadoria, auxílio ou pensão recusados ou cortados sem explicação clara.</p>
-      </article>
-      <article class="card">
-        <div class="chip"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 10h16"/></svg></div>
-        <h3>Nome negativado indevidamente</h3>
-        <p>Dívida que você não fez, cobrança que não reconhece ou restrição que não deveria existir.</p>
-      </article>
-      <article class="card">
-        <div class="chip"><svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 9h6M9 13h6"/></svg></div>
-        <h3>Produto ou serviço com defeito</h3>
-        <p>Compra que parou de funcionar e o fornecedor não resolveu, nem com troca nem com reparo.</p>
-      </article>
-      <article class="card">
-        <div class="chip"><svg viewBox="0 0 24 24"><path d="M6 4h9l3 3v13H6zM9 12h6M9 16h4"/></svg></div>
-        <h3>Contrato não cumprido</h3>
-        <p>Serviço pago e não entregue, aluguel ou acordo que a outra parte descumpriu.</p>
-      </article>
-      <article class="card">
-        <div class="chip"><svg viewBox="0 0 24 24"><path d="M12 4l8 14H4z"/><path d="M12 10v4M12 16v.5"/></svg></div>
-        <h3>Dano que precisa de indenização</h3>
-        <p>Prejuízo material ou moral causado por outra pessoa ou empresa que precisa ser reparado.</p>
-      </article>
-      <article class="card">
-        <div class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
-        <h3>Prazo que está correndo</h3>
-        <p>Recebeu uma decisão e não sabe até quando pode recorrer ou agir. Vamos ver isso juntos.</p>
-      </article>
-    </div>
-  </section>
 
-  <section class="band" style="padding-top:20px">
-    <div class="wrap">
-      <div class="band-img" role="img" aria-label="Colunas clássicas de um prédio">
-        <div class="band-txt">
-          <span class="pill">Atendimento</span>
-          <h2>Explicação antes de <em>qualquer decisão</em></h2>
-          <p>Analiso documentos, prazos e as chances de cada caminho. Você recebe a explicação do que pode ser feito e só seguimos depois que concordar.</p>
-        </div>
+    <div class="sobre__quadro">
+      <div class="foto sobre__foto" data-revela="foto">
+        <img src="./img/sobre-1254.webp" srcset="img/sobre-720.webp 720w, img/sobre-1254.webp 1254w" sizes="(max-width: 899px) 100vw, 640px" width="1254" height="1254" alt="" loading="lazy" decoding="async" data-desliza>
       </div>
-    </div>
-  </section>
-
-  <section id="areas" style="padding-top:20px">
-    <div class="head">
-      <div>
-        <span class="pill">Áreas de atuação</span>
-        <h2>Escolha a área do <em>seu caso</em></h2>
-      </div>
-      <p>Cada área mostra o que costuma ser feito, os documentos para reunir e o prazo que mais pesa. Use a checagem para ver o que já tem em mãos.</p>
-    </div>
-    <div class="areas">
-      <div class="tablist" role="tablist" aria-label="Áreas">
-        <button class="tab" role="tab" id="t-previdenciario" aria-controls="p-previdenciario" aria-selected="true" data-key="previdenciario"><span class="n">01</span><b>Previdenciário</b><small>INSS e benefícios</small></button>
-        <button class="tab" role="tab" id="t-consumidor" aria-controls="p-consumidor" aria-selected="false" tabindex="-1" data-key="consumidor"><span class="n">02</span><b>Consumidor</b><small>Cobranças e produtos</small></button>
-        <button class="tab" role="tab" id="t-civel" aria-controls="p-civel" aria-selected="false" tabindex="-1" data-key="civel"><span class="n">03</span><b>Cível</b><small>Ações indenizatórias e imóveis</small></button>
-          <div class="mini-steps">
-            <h4>Como funciona</h4>
-            <ol>
-              <li><b>01</b><span>Você conta o caso pelo formulário ou WhatsApp.</span></li>
-              <li><b>02</b><span>Eu analiso os documentos, os prazos e os caminhos possíveis.</span></li>
-              <li><b>03</b><span>Você decide, com a explicação de cada opção.</span></li>
-            </ol>
-            <p class="place"><strong>Atendimento:</strong> presencial em Mauriti e para todo o Brasil.</p>
-          </div>
-          <aside class="aside-cta" aria-label="Próximo passo">
-            <p class="kicker">Próximo passo</p>
-            <h3>Envie o seu caso e receba a explicação</h3>
-            <p>Conte a situação no formulário ou direto no WhatsApp. Você recebe a orientação inicial antes de qualquer compromisso.</p>
-            <div class="aside-btns">
-              <a class="btn" href="#contato">Enviar caso <span class="arr">↗</span></a>
-              <a class="btn ghost" href="https://wa.me/5588999280941" target="_blank" rel="noopener">WhatsApp</a>
-            </div>
-          </aside>
-      </div>
-
-      <div class="panel anim" role="tabpanel" id="p-previdenciario" aria-labelledby="t-previdenciario" data-panel="previdenciario">
-        <figure class="pimg"><img src="assets/foto-biblioteca.webp" alt="Livros de direito em estantes de biblioteca"></figure>
-        <h3>Previdenciário <em>INSS</em></h3>
-        <p class="lede">Benefício negado, parado há meses, cessado sem aviso ou pago abaixo do que deveria. Muitas vezes o problema está no tempo de contribuição que não foi considerado.</p>
-        <div class="cols">
-          <div>
-            <h4>O que eu faço</h4>
-            <ul>
-              <li>Conferência do CNIS e do tempo de contribuição, com busca de vínculos que faltam</li>
-              <li>Auxílio por incapacidade e aposentadoria por invalidez, com preparo de laudos</li>
-              <li>Recurso administrativo ao CRPS e ação no Juizado Especial Federal</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Documentos para reunir</h4>
-            <ul>
-              <li>Carta de indeferimento ou de cessação</li>
-              <li>Carteira de trabalho e contracheques</li>
-              <li>Laudos e exames médicos recentes</li>
-              <li>CPF, RG e comprovante de residência</li>
-            </ul>
-          </div>
-        </div>
-        <div class="deadline"><b>30 dias</b><span>é, em regra, o prazo para recorrer de uma decisão do INSS ao Conselho de Recursos (CRPS). Confirme a data exata da sua carta.</span></div>
-        <div class="checklist" data-list="previdenciario">
-          <header><h4>Checagem rápida</h4><span class="count">0 de 4</span></header>
-          <div class="bar"><i></i></div>
-          <label><input type="checkbox"> <span>Tenho a carta do INSS com a data da decisão</span></label>
-          <label><input type="checkbox"> <span>Sei o número do benefício ou do protocolo</span></label>
-          <label><input type="checkbox"> <span>Tenho exames ou laudos dos últimos 12 meses</span></label>
-          <label><input type="checkbox"> <span>Tenho a carteira de trabalho de todos os empregos</span></label>
-        </div>
-      </div>
-
-      <div class="panel anim" role="tabpanel" id="p-consumidor" aria-labelledby="t-consumidor" data-panel="consumidor" hidden>
-        <figure class="pimg"><img src="assets/foto-assinatura-contrato.webp" alt="Mão assinando um contrato"></figure>
-        <h3>Direito do <em>Consumidor</em></h3>
-        <p class="lede">Nome negativado por dívida que você não fez, cobrança de valor que não reconhece, produto que apresentou defeito e o fornecedor não resolveu.</p>
-        <div class="cols">
-          <div>
-            <h4>O que eu faço</h4>
-            <ul>
-              <li>Pedido de retirada do nome dos órgãos de proteção ao crédito e de cancelamento da cobrança</li>
-              <li>Ação de indenização por dano moral quando a negativação foi indevida</li>
-              <li>Pedido de troca, reparo ou devolução do valor pago, com análise da garantia</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Documentos para reunir</h4>
-            <ul>
-              <li>Notas fiscais, contratos e pedidos</li>
-              <li>Protocolos de reclamação no SAC ou no Procon</li>
-              <li>Print da negativação ou da cobrança</li>
-              <li>Comprovantes de pagamento, se houver</li>
-            </ul>
-          </div>
-        </div>
-        <div class="deadline"><b>5 anos</b><span>é, em regra, o prazo para ações por defeito de produto ou serviço (art. 27 do CDC). Causas de até 20 salários mínimos podem ser apresentadas no Juizado Especial sem advogado, mas a análise antes evita erros.</span></div>
-        <div class="checklist" data-list="consumidor">
-          <header><h4>Checagem rápida</h4><span class="count">0 de 4</span></header>
-          <div class="bar"><i></i></div>
-          <label><input type="checkbox"> <span>Tenho a nota fiscal ou o contrato</span></label>
-          <label><input type="checkbox"> <span>Tenho o protocolo da reclamação</span></label>
-          <label><input type="checkbox"> <span>Tenho print da negativação ou da cobrança</span></label>
-          <label><input type="checkbox"> <span>Sei a data em que descobri o problema</span></label>
-        </div>
-      </div>
-
-      <div class="panel anim" role="tabpanel" id="p-civel" aria-labelledby="t-civel" data-panel="civel" hidden>
-        <figure class="pimg"><img src="assets/foto-martelo-madeira.webp" alt="Martelo de madeira sobre uma superfície"></figure>
-        <h3>Direito <em>Cível</em></h3>
-        <p class="lede">Contrato de prestação de serviço, aluguel, compra e venda ou empréstimo que não foi cumprido. Também danos causados por terceiros que precisam ser reparados.</p>
-        <div class="cols">
-          <div>
-            <h4>O que eu faço</h4>
-            <ul>
-              <li>Notificação extrajudicial e negociação antes de qualquer processo</li>
-              <li>Ação de cobrança ou de execução, com análise do título e das garantias</li>
-              <li>Ação de indenização por danos materiais e morais</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Documentos para reunir</h4>
-            <ul>
-              <li>Contrato, recibos e trocas de mensagens</li>
-              <li>Comprovantes de pagamento</li>
-              <li>Fotos, orçamentos e laudos, em caso de dano</li>
-              <li>Testemunhas, com nome e contato</li>
-            </ul>
-          </div>
-        </div>
-        <div class="deadline"><b>3 anos</b><span>é, em regra, o prazo para pedir indenização por reparação civil (art. 206, §3º, V, do Código Civil). Para cobranças de dívidas em geral, o prazo costuma ser de 10 anos (art. 205). Cada caso tem particularidades.</span></div>
-        <div class="checklist" data-list="civel">
-          <header><h4>Checagem rápida</h4><span class="count">0 de 4</span></header>
-          <div class="bar"><i></i></div>
-          <label><input type="checkbox"> <span>Tenho o contrato ou o recibo assinado</span></label>
-          <label><input type="checkbox"> <span>Tenho as conversas com a outra parte</span></label>
-          <label><input type="checkbox"> <span>Sei a data do fato ou do vencimento</span></label>
-          <label><input type="checkbox"> <span>Tenho provas do dano, se houver</span></label>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="sobre" class="about">
-    <div class="about-left">
-    <div class="plate">
-      <img src="assets/dr-robe-estendida.png" alt="Dr. Rafael, advogado, de beca">
-      <svg viewBox="0 0 200 200" fill="none" stroke="#c9a14a" stroke-width="1.4">
-        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d890"/><stop offset="1" stop-color="#8f6f2c"/></linearGradient></defs>
-        <circle cx="100" cy="100" r="92" stroke="#2a2a2e"/>
-        <circle cx="100" cy="100" r="76" stroke="url(#g2)" stroke-dasharray="2 5"/>
-        <text x="100" y="128" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="96" font-weight="500" fill="url(#g2)" stroke="none">R</text>
-      </svg>
-    </div>
-    </div>
-    <div>
-      <span class="pill">Sobre o Dr. Rafael</span>
-      <h2>Advogado em Mauriti, com foco em <em>três áreas</em></h2>
-      <p>Sou advogado inscrito na OAB/CE sob o nº 44.811 e atendo em Mauriti e na região do Cariri. Trabalho com Direito Previdenciário, Direito do Consumidor e Direito Cível, com atendimento presencial em Mauriti e para todo o Brasil.</p>
-      <div class="facts">
-        <div><i></i>Previdenciário: benefícios do INSS, revisões e recursos</div>
-        <div><i></i>Consumidor: negativações, cobranças indevidas e produtos com defeito</div>
-        <div><i></i>Cível: ações indenizatórias e regularização de imóveis</div>
-        <div><i></i>Atendimento presencial em Mauriti e para todo o Brasil</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="weekly weekly-full">
-    <span class="pill">Artigo da semana</span>
-    <div class="weekly-body" id="weekly-body">
-      <h3>Art. 186 do Código Civil</h3>
-      <blockquote>“Aquele que, por ação ou omissão voluntária, negligência ou imprudência, violar direito e causar dano a outrem, ainda que exclusivamente moral, comete ato ilícito.”</blockquote>
-      <p>Esse artigo define o que é ato ilícito. Ele não exige que o dano seja material: um prejuízo exclusivamente moral também conta. Pelo art. 927 do mesmo código, quem comete ato ilícito e causa dano fica obrigado a repará-lo.</p>
-      <p>Na prática, negativações indevidas, cobranças abusivas e ofensas podem justificar um pedido de indenização, desde que haja prova do dano e da relação com a conduta da outra parte. Cada caso tem particularidades, e a análise do seu caso mostra se a situação se encaixa.</p>
+      <ul class="sobre__numeros vidro" data-revela="sobe" style="--i: 4">
+        <li>
+          <span class="rotulo">Registro</span>
+          <span class="numero numero--frase">OAB/CE</span>
+          <span class="rotulo">44.811</span>
+        </li>
+        <li>
+          <span class="rotulo">Atendimento presencial</span>
+          <span class="numero numero--frase">Mauriti, CE</span>
+          <span class="rotulo">e região do Cariri</span>
+        </li>
+        <li>
+          <span class="rotulo">Atendimento em</span>
+          <span class="numero numero--frase">Todo o Brasil</span>
+          <span class="rotulo">pelo WhatsApp e e-mail</span>
+        </li>
+      </ul>
     </div>
   </div>
+</section>
 
-  <section id="prazos" style="padding-top:20px">
-    <div class="head">
-      <div>
-        <span class="pill">Prazos</span>
-        <h2>Não deixe o <em>prazo correr</em></h2>
-      </div>
-      <p>Perder um prazo pode significar começar do zero. Os números abaixo são o ponto de partida, e o prazo do seu caso pode ser diferente.</p>
-    </div>
-    <div class="deadlines">
-      <article class="dl"><div class="big">30<small>dias</small></div><h3>Recurso ao INSS</h3><p>Para recorrer de uma decisão administrativa, conte a partir da ciência da decisão.</p></article>
-      <article class="dl"><div class="big">5<small>anos</small></div><h3>Defeito de produto</h3><p>Ação por vício ou dano causado por produto ou serviço, no Código de Defesa do Consumidor.</p></article>
-      <article class="dl"><div class="big">3<small>anos</small></div><h3>Reparação civil</h3><p>Pedido de indenização por dano causado a você, no Código Civil.</p></article>
-    </div>
-    <p class="note">Informação geral para orientação inicial. Não substitui a análise do seu caso, porque o início da contagem e as exceções variam.</p>
-  </section>
-
-  <section id="educativo" style="padding-top:20px">
-    <div class="head">
-      <div>
-        <span class="pill">Conteúdo educativo</span>
-        <h2>Informação para <em>entender seus direitos</em></h2>
-      </div>
-      <p>Textos e vídeos curtos com orientações gerais sobre INSS, consumidor e direito cível. Cada caso tem particularidades, então o que vale para você depende da análise do seu caso.</p>
-    </div>
-    <div class="edu-cards">
-      <article class="edu-card">
-        <h3>INSS negou o benefício?</h3>
-        <p>Leia a carta de decisão com atenção e anote a data em que você recebeu. Em regra, o recurso ao Conselho de Recursos (CRPS) tem prazo de 30 dias, e cada caso tem suas particularidades.</p>
-        <a class="edu-link" href="#post/inss-negou-beneficio">Ler texto completo ↗</a>
-      </article>
-      <article class="edu-card">
-        <h3>Nome negativado sem dívida?</h3>
-        <p>Guarde o print da negativação, o protocolo de reclamação no SAC ou no Procon e os comprovantes de pagamento, se houver. Reunir esses documentos cedo ajuda na análise.</p>
-        <a class="edu-link" href="#post/nome-negativado">Ler texto completo ↗</a>
-      </article>
-      <article class="edu-card">
-        <h3>Quanto tempo para cobrar na Justiça?</h3>
-        <p>Em regra, a ação por defeito de produto ou serviço tem prazo de 5 anos, pelo Código de Defesa do Consumidor. Já a reparação civil costuma ter prazo de 3 anos, pelo Código Civil.</p>
-        <a class="edu-link" href="#post/prazos-cobrar-justica">Ler texto completo ↗</a>
-      </article>
-    </div>
-    <div class="actions">
-      <a class="btn" href="https://www.instagram.com/rafaellc.adv" target="_blank" rel="noopener">Acompanhe no Instagram <span class="arr">↗</span></a>
-    </div>
-  </section>
-
-  <section id="blog" style="padding-top:20px">
-    <div class="head blog-head">
-      <div>
-        <span class="pill">Blog</span>
-        <h2>Textos para <em>entender o seu caso</em></h2>
-      </div>
-      <p>Artigos curtos com orientações gerais. Cada caso tem particularidades, e a análise do seu caso mostra o caminho certo.</p>
-    </div>
-    <div class="blog-grid" id="blog-list"></div>
-    <article class="post" id="post-view" hidden>
-      <a class="post-back" href="#blog">← Voltar para o blog</a>
-      <span class="pill" id="post-cat"></span>
-      <h2 id="post-title"></h2>
-      <div class="post-body" id="post-body"></div>
-      <p class="note">Informação geral. Não substitui a análise do seu caso.</p>
-    </article>
-  </section>
-
-  <section id="duvidas" style="padding-top:20px">
-    <div class="faq-wrap">
-      <div>
-        <span class="pill">Dúvidas</span>
-        <h2>Perguntas que <em>eu mais ouço</em></h2>
-      </div>
-      <div>
-        <details class="qa" name="faq">
-          <summary>Preciso de advogado para ir ao Juizado?</summary>
-          <p class="ans">Em causas no Juizado Especial Federal e em causas cíveis de até 20 salários mínimos, a presença de advogado não é obrigatória na primeira instância. Mesmo assim, uma análise antes evita erros de valor, de pedido e de prazo.</p>
-        </details>
-        <details class="qa" name="faq">
-          <summary>Quanto tempo leva para o INSS responder?</summary>
-          <p class="ans">Depende da fila e do tipo de pedido. O prazo pode se estender por meses no administrativo, por isso vale avaliar desde o início se o recurso e a ação devem ser preparados em paralelo.</p>
-        </details>
-        <details class="qa" name="faq">
-          <summary>Posso mandar os documentos pelo WhatsApp?</summary>
-          <p class="ans">Pode. Foto legível ou PDF servem para a análise inicial. Os originais só são necessários em etapas específicas, e eu aviso antes.</p>
-        </details>
+    <!-- Áreas de atuação: três cartões. Cada um abre o painel de leitura com o detalhe da área: data-painel="area-..."
+     aponta para o <template> de mesmo nome em src/sections/painel.html. -->
+<section class="secao gruda areas s-noite" id="areas" data-elo="#areas">
+  <div class="agua areas__agua" data-desliza="40"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</div>
+  <div class="caixa">
+    <div class="areas__topo">
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Áreas de atuação</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Três áreas,</span></span>
+          <span class="l"><span class="apagado">um só advogado.</span></span>
+        </h2>
+      </header>
+      <div class="areas__lado" data-revela="sobe" style="--i: 3">
+        <p class="texto">Atendimento em Mauriti e na região do Cariri, e em todo o Brasil, com foco em benefícios do INSS, defesa do consumidor e ações cíveis.</p>
+        <p class="rotulo areas__nota">Explicação antes <br>de qualquer decisão.</p>
       </div>
     </div>
-  </section>
 
-  <section id="contato" style="padding-top:20px">
-    <div class="contact">
-      <div class="contact-card">
-        <img class="cimg" src="assets/foto-sala-reuniao.webp" alt="Sala de reunião com mesa de madeira">
-        <span class="pill">Fale com o escritório</span>
-        <h2>Me conte o que <em style="font-style:normal;color:var(--gold-hi)">aconteceu</em></h2>
-        <p class="lead">Quanto mais claro o resumo, melhor a primeira resposta. O formulário monta uma mensagem pronta para o WhatsApp.</p>
-        <div class="chans">
-          <a class="chan" href="https://wa.me/5588999280941" target="_blank" rel="noopener">
-            <span class="chip"><svg viewBox="0 0 24 24"><path d="M4 20l1.2-4A8 8 0 1 1 8 18.8z"/></svg></span>
-            <span><b>WhatsApp</b><span>(88) 99928-0941</span></span>
+    <ul class="areas__lista" data-revela="grupo">
+      <li class="area" data-seta>
+        <div class="foto area__foto">
+          <img src="./img/area-trabalhista-480.webp" srcset="img/area-trabalhista-480.webp 480w, img/area-trabalhista-960.webp 960w" sizes="(max-width: 899px) 96px, 210px" width="480" height="320" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="area__corpo">
+          <svg class="ic area__ic" aria-hidden="true"><use href="#i-casa"/></svg>
+          <h3 class="area__nome"><button class="area__abre" type="button" data-abre="painel" data-painel="area-previdenciario" aria-haspopup="dialog">Previdenciário</button></h3>
+          <p class="area__txt">INSS e benefícios: conferência do CNIS, auxílio por incapacidade, aposentadoria e recurso ao CRPS.</p>
+          <span class="seta area__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
+        </div>
+      </li>
+      <li class="area" data-seta>
+        <div class="foto area__foto">
+          <img src="./img/area-empresarial-480.webp" srcset="img/area-empresarial-480.webp 480w, img/area-empresarial-960.webp 960w" sizes="(max-width: 899px) 96px, 210px" width="480" height="320" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="area__corpo">
+          <svg class="ic area__ic" aria-hidden="true"><use href="#i-escudo"/></svg>
+          <h3 class="area__nome"><button class="area__abre" type="button" data-abre="painel" data-painel="area-consumidor" aria-haspopup="dialog">Consumidor</button></h3>
+          <p class="area__txt">Cobranças e negativações indevidas, produto ou serviço com defeito e contrato não cumprido.</p>
+          <span class="seta area__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
+        </div>
+      </li>
+      <li class="area" data-seta>
+        <div class="foto area__foto">
+          <img src="./img/area-civil-480.webp" srcset="img/area-civil-480.webp 480w, img/area-civil-960.webp 960w" sizes="(max-width: 899px) 96px, 210px" width="480" height="320" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="area__corpo">
+          <svg class="ic area__ic" aria-hidden="true"><use href="#i-contrato"/></svg>
+          <h3 class="area__nome"><button class="area__abre" type="button" data-abre="painel" data-painel="area-civil" aria-haspopup="dialog">Cível</button></h3>
+          <p class="area__txt">Ações indenizatórias, danos que precisam de reparação e regularização de imóveis.</p>
+          <span class="seta area__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="acoes areas__acoes" data-revela="sobe">
+      <a class="botao botao--claro" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+      <a class="elo" href="https://wa.me/5588999280941?text=Ol%C3%A1!%20Quero%20entender%20em%20qual%20%C3%A1rea%20est%C3%A1%20o%20meu%20caso." target="_blank" rel="noopener">
+        <span class="elo__ic"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span>
+        <span class="elo__txt">Não sabe qual é a área do seu caso? Pergunte no WhatsApp.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+    <!-- Equipe: a foto em bandeira com o cartão do advogado na borda de baixo; texto e números à esquerda. -->
+<section class="secao equipe s-papel" id="equipe" data-elo="#sobre">
+  <div class="agua equipe__agua" data-desliza="46"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</div>
+  <div class="caixa equipe__grade">
+    <div class="foto bandeira equipe__foto" data-revela="foto">
+      <img src="./img/equipe-1254.webp" srcset="img/equipe-800.webp 800w, img/equipe-1254.webp 1254w" sizes="(max-width: 899px) 100vw, 56vw" width="1254" height="1254" alt="" loading="lazy" decoding="async" data-desliza>
+    </div>
+
+    <div class="equipe__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Quem atende</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Um advogado</span></span>
+          <span class="l"><span class="apagado">que explica cada passo.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">O Dr. Rafael atende em Mauriti, na região do Cariri e em todo o Brasil, com foco em três áreas: previdenciário, consumidor e cível.</p>
+      <p class="texto" data-revela="sobe">Você recebe a explicação de cada caminho antes de decidir, e o escritório só segue depois que você concorda.</p>
+      <div class="acoes" data-revela="sobe">
+        <a class="botao" href="#contato">
+          <span class="botao__txt">Fale com o Dr. Rafael</span>
+          <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+        </a>
+        <a class="elo" href="#areas">
+          <span class="elo__ic"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span>
+          <span class="elo__txt">Veja as áreas de atuação</span>
+        </a>
+      </div>
+      <ul class="equipe__numeros" data-revela="sobe">
+        <li><span class="numero numero--frase">OAB/CE</span><span class="rotulo">44.811 <br>registro</span></li>
+        <li><span class="numero" data-conta="3">3</span><span class="rotulo">Áreas <br>de atuação</span></li>
+        <li><span class="numero numero--frase">Mauriti</span><span class="rotulo">Atendimento <br>presencial</span></li>
+      </ul>
+    </div>
+
+    <ul class="equipe__socios" data-revela="grupo">
+      <li class="vidro">
+        <h3 class="rotulo">Dr. Rafael</h3>
+        <p>Advogado em Mauriti, CE. Atende previdenciário, consumidor e cível.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+    <!-- Conteúdo: os artigos do escritório. Cada cartão abre o painel de leitura com o texto: data-painel="artigo-..."
+     aponta para o <template> de mesmo nome em src/sections/painel.html. -->
+<section class="secao conteudo s-papel" id="artigos" data-elo="#artigos">
+  <div class="agua conteudo__agua" data-desliza="46"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</div>
+  <div class="caixa conteudo__grade">
+    <div class="foto bandeira conteudo__foto" data-revela="foto">
+      <img src="./img/conteudo-1536.webp" srcset="img/conteudo-800.webp 800w, img/conteudo-1536.webp 1536w" sizes="(max-width: 899px) 100vw, 56vw" width="1536" height="1024" alt="" loading="lazy" decoding="async" data-desliza>
+    </div>
+
+    <div class="conteudo__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Conteúdo</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Entender</span></span>
+          <span class="l"><span class="apagado">o direito também protege.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">Textos curtos sobre direitos do dia a dia, em português claro, para você prevenir problemas e decidir melhor.</p>
+      <div class="acoes" data-revela="sobe">
+        <button class="botao" type="button" data-abre="painel" data-painel="artigo-civil" aria-haspopup="dialog">
+          <span class="botao__txt">Ler o artigo da semana</span>
+          <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+        </button>
+      </div>
+    </div>
+
+    <p class="rotulo conteudo__rotulo" data-revela="sobe">Artigo da semana</p>
+    <ul class="conteudo__lista" data-revela="grupo">
+      <li class="artigo" data-seta>
+        <div class="foto artigo__foto">
+          <img src="./img/artigo-civil-640.webp" srcset="img/artigo-civil-640.webp 640w, img/artigo-civil-1280.webp 1280w" sizes="(max-width: 899px) 78vw, 310px" width="640" height="360" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="artigo__corpo">
+          <div>
+            <p class="rotulo artigo__tema">Cível</p>
+            <h3 class="artigo__titulo"><button class="artigo__abre" type="button" data-abre="painel" data-painel="artigo-civil" aria-haspopup="dialog">Ato ilícito e o dever de reparar o dano</button></h3>
+          </div>
+          <span class="seta artigo__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+    <!-- Contato: três caminhos (WhatsApp, telefone, e-mail) e o endereço com o mapa. Os números, o e-mail e o endereço
+     são de exemplo: troque aqui e no rodapé. data-via marca os links que recebem o assunto escolhido numa área
+     (src/motion/contato.js). O mapa é um desenho ornamental, sem ruas reais. -->
+<section class="secao contato s-papel" id="contato" data-elo="#contato">
+  <div class="agua contato__agua" data-desliza="46"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</div>
+  <div class="caixa contato__grade">
+    <div class="contato__texto" data-escada>
+      <header class="cabeca">
+        <p class="rotulo" data-revela="sobe">Fale conosco</p>
+        <h2 class="titulo" data-revela="linhas">
+          <span class="l"><span>Se algo não saiu</span></span>
+          <span class="l"><span class="apagado">como deveria, eu posso ajudar.</span></span>
+        </h2>
+      </header>
+      <p class="texto" data-revela="sobe">Benefício do INSS negado, nome negativado indevidamente, produto com defeito, contrato não cumprido, dano que precisa de indenização ou prazo que está correndo. Conte o caso pelo WhatsApp ou pelo e-mail.</p>
+
+      <p class="contato__assunto" data-assunto-aviso hidden>
+        <span>Assunto: <strong data-assunto-nome></strong></span>
+        <button type="button" data-assunto-tira aria-label="Tirar o assunto"><svg class="ic" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+      </p>
+
+      <ul class="contato__vias" data-revela="grupo">
+        <li>
+          <a class="via via--cheia" href="https://wa.me/5588999280941?text=Ol%C3%A1!%20Quero%20falar%20com%20um%20advogado." target="_blank" rel="noopener" data-via="whats" data-seta>
+            <svg class="ic via__ic" aria-hidden="true"><use href="#i-conversa"/></svg>
+            <h3 class="via__nome">Falar no WhatsApp</h3>
+            <p class="via__txt">Envie seus documentos e a sua história por aqui.</p>
+            <span class="seta via__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
           </a>
-          <a class="chan" href="mailto:raffael.advogado@gmail.com">
-            <span class="chip"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
-            <span><b>E-mail</b><span>raffael.advogado@gmail.com</span></span>
+        </li>
+        <li>
+          <a class="via" href="https://instagram.com/rafaellc.adv" target="_blank" rel="noopener" data-seta>
+            <svg class="ic via__ic" aria-hidden="true"><use href="#i-fone"/></svg>
+            <h3 class="via__nome">Siga no Instagram</h3>
+            <p class="via__txt"><span class="via__dado">@rafaellc.adv</span>Conteúdo e novidades do escritório.</p>
+            <span class="seta via__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
           </a>
-          <div class="chan">
-            <span class="chip"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg></span>
-            <span><b>Registro</b><span>OAB/CE 44.811</span></span>
-          </div>
-        </div>
+        </li>
+        <li>
+          <a class="via" href="mailto:raffael.advogado@gmail.com?subject=Quero%20falar%20com%20um%20advogado" data-via="email" data-seta>
+            <svg class="ic via__ic" aria-hidden="true"><use href="#i-carta"/></svg>
+            <h3 class="via__nome">Enviar um e-mail</h3>
+            <p class="via__txt"><span class="via__dado">raffael.advogado<wbr>@gmail.com</span>Envie o caso por escrito.</p>
+            <span class="seta via__seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="contato__garantias" data-revela="sobe">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-cadeado"/></svg><span class="rotulo">Explicação <br>antes de decidir</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-balao"/></svg><span class="rotulo">Só segue com <br>o seu acordo</span></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-tela"/></svg><span class="rotulo">Presencial em <br>Mauriti, CE</span></li>
+      </ul>
+
+      <p class="contato__frase" data-revela="sobe">“Você entende cada passo do seu caso.”</p>
+    </div>
+
+    <div class="contato__lado">
+      <div class="foto contato__foto" data-revela="foto">
+        <img src="./img/contato-1600.webp" srcset="img/contato-800.webp 800w, img/contato-1600.webp 1600w" sizes="(max-width: 899px) 100vw, 56vw" width="1600" height="1000" alt="" loading="lazy" decoding="async" data-desliza>
       </div>
 
-      <form class="lead-form" id="lead" novalidate>
-        <h3>Descreva o seu caso</h3>
-        <div class="field" id="f-area">
-          <span class="lbl" id="area-lbl">Qual é a área?</span>
-          <div class="chips" role="group" aria-labelledby="area-lbl">
-            <button type="button" class="opt" aria-pressed="false" data-val="Previdenciário">Previdenciário</button>
-            <button type="button" class="opt" aria-pressed="false" data-val="Consumidor">Consumidor</button>
-            <button type="button" class="opt" aria-pressed="false" data-val="Cível">Cível</button>
-            <button type="button" class="opt" aria-pressed="false" data-val="Ainda não sei">Ainda não sei</button>
-          </div>
-          <span class="err"></span>
+      <div class="contato__local" data-revela="sobe" style="--i: 3">
+        <div class="contato__onde">
+          <p class="rotulo">Onde estamos</p>
+          <h3 class="contato__perto">Atendimento em Mauriti, CE.</h3>
+          <address class="contato__endereco">
+            <svg class="ic" aria-hidden="true"><use href="#i-pino"/></svg>
+            <span><strong>Mauriti, CE</strong> Região do Cariri<small>Endereço do escritório: [preencher]</small></span>
+          </address>
+          <a class="botao botao--suave contato__mapa" href="https://www.google.com/maps/search/?api=1&amp;query=Mauriti+CE" target="_blank" rel="noopener">
+            <svg class="ic" aria-hidden="true"><use href="#i-mapa"/></svg>
+            <span class="botao__txt">Ver no mapa</span>
+            <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+          </a>
         </div>
-        <div class="field" id="f-name">
-          <label class="lbl" for="name">Seu nome</label>
-          <input id="name" autocomplete="name" placeholder="Como posso te chamar?">
-          <span class="err"></span>
+        <div class="mapa" aria-hidden="true">
+          <svg class="mapa__ruas" viewBox="0 0 420 340" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <g transform="rotate(-21 210 170)">
+              <g class="mapa__rua">
+                <path d="M-120 20H560M-120 124H560M-120 236H560M-120 338H560"/>
+                <path d="M30 -140V480M158 -140V480M282 -140V480M406 -140V480"/>
+              </g>
+              <g class="mapa__viela">
+                <path d="M-120 72H158M282 180H560M-120 290H158M94 124V236M344 -140V124M220 236V480"/>
+              </g>
+              
+            </g>
+          </svg>
+          <span class="mapa__pino">
+            <span class="mapa__onda"></span>
+            <svg class="mapa__gota" viewBox="0 0 48 60" focusable="false"><path d="M24 58C24 58 4 38.500 4 23.500a20 20 0 0 1 40 0C44 38.500 24 58 24 58z"/></svg>
+            <span class="mapa__selo selo--ouro"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</span>
+          </span>
         </div>
-        <div class="field" id="f-phone">
-          <label class="lbl" for="phone">WhatsApp com DDD</label>
-          <input id="phone" inputmode="tel" autocomplete="tel" placeholder="(88) 99999-9999">
-          <span class="err"></span>
-        </div>
-        <div class="field" id="f-msg">
-          <label class="lbl" for="msg">O que aconteceu?</label>
-          <textarea id="msg" maxlength="600" placeholder="Ex.: Em março o INSS negou minha aposentadoria por falta de tempo de contribuição."></textarea>
-          <span class="err"></span>
-        </div>
-        <div class="form-row">
-          <button class="btn" type="submit">Montar mensagem <span class="arr">↗</span></button>
-          <small>Nada é enviado sem o seu clique.</small>
-        </div>
-        <div class="out" id="out" role="status" aria-live="polite">
-          <strong>Sua mensagem está pronta.</strong>
-          <pre id="preview"></pre>
-          <div class="form-row">
-            <a class="btn" id="wa" href="https://wa.me/5588999280941" target="_blank" rel="noopener">Enviar pelo WhatsApp <span class="arr">↗</span></a>
-            <button class="btn ghost" type="button" id="copy">Copiar texto</button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-<footer>
-  <div class="wrap">
-    <span class="big">Seu caso, <em>minha responsabilidade.</em></span>
-    <span>© 2026 Rafael Advocacia · OAB/CE 44.811 · Mauriti, CE</span>
-    <div class="foot-info">
-      <span>WhatsApp (83) 9 2141-8988</span>
-      <a href="mailto:jeffersonramalhopb@gmail.com">jeffersonramalhopb@gmail.com</a>
-      <a href="https://instagram.com/jefferson_ramalhopb" target="_blank" rel="noopener">Instagram @jefferson_ramalhopb</a>
+  </main>
+
+  <!-- Rodapé. Telefone, e-mail, endereço e registros são de exemplo: os mesmos da seção de contato. -->
+<footer class="rodape s-noite">
+  <div class="agua rodape__agua"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</div>
+  <div class="caixa">
+    <div class="rodape__cima">
+      <a class="marca rodape__marca" href="#inicio" aria-label="Rafael Advocacia: voltar ao início">
+        <span class="marca__selo selo--ouro"><svg class="selo" viewBox="0 0 240 240" aria-hidden="true" focusable="false"><circle class="selo__aro" cx="120" cy="120" r="116" pathLength="1"/><circle class="selo__fio" cx="120" cy="120" r="105.5" pathLength="1"/><path class="selo__e" d="M103.14 51Q113.80 51 120.35 56.50Q126.90 62.01 126.90 70.74Q126.90 74.93 125.33 77.81Q123.76 80.70 121.14 81.22Q118.34 74.58 113.01 70.83Q107.68 67.07 101.05 67.07Q93.01 67.07 87.86 72.40Q82.71 77.73 82.71 86.11Q82.71 95.02 88.64 96.94Q97.20 99.74 100 102.01Q102.79 104.28 102.79 108.30Q102.79 112.14 100.61 114.24Q98.43 116.33 94.41 116.33Q90.74 116.33 88.47 114.85Q86.20 113.36 84.36 111.35Q82.53 109.34 80.35 107.86Q78.16 106.37 75.02 106.37Q69.08 106.37 64.97 112.40Q60.87 118.43 60.87 127.51Q60.87 139.56 67.68 149.35Q74.49 159.13 86.02 164.89Q97.55 170.66 111.70 170.66Q121.48 170.66 130.22 167.51Q138.95 164.37 145.68 158.87Q152.40 153.36 156.25 146.29Q160.09 139.22 160.09 131.18Q160.09 123.84 156.86 117.99Q153.63 112.14 148.12 108.65Q142.62 105.15 135.63 105.15Q127.07 105.15 121.83 109.43Q116.59 113.71 116.59 120.87Q116.59 126.11 119.39 129.69Q122.18 133.28 126.03 133.28Q130.04 133.28 130.04 129.08Q130.04 127.86 129.87 126.38Q129.69 124.89 129.69 123.67Q129.69 120.70 131.62 118.69Q133.54 116.68 136.51 116.68Q140.18 116.68 142.80 119.83Q145.42 122.97 145.42 127.51Q145.42 133.63 140.18 138.08Q134.94 142.53 127.42 142.53Q119.04 142.53 113.54 136.16Q108.03 129.78 108.03 120.17Q108.03 111.79 112.31 105.41Q116.59 99.04 124.28 95.37Q131.97 91.70 141.92 91.70L160.26 91.70Q170.75 91.70 177.03 87.33Q183.32 82.97 183.32 75.63Q183.32 71.09 180.53 67.68Q177.73 64.28 174.24 64.28Q171.27 64.28 170.48 66.11Q169.70 67.94 169.35 70.30Q169 72.66 167.60 74.49Q166.20 76.33 161.84 76.33Q157.64 76.33 155.29 73.97Q152.93 71.61 152.93 67.42Q152.93 61.66 157.29 58.25Q161.66 54.84 169.17 54.84Q176.51 54.84 182.19 58.07Q187.86 61.31 191.10 66.98Q194.33 72.66 194.33 80Q194.33 88.03 190.05 94.41Q185.77 100.78 178.17 104.54Q170.57 108.30 160.61 108.65L160.26 109.34Q164.81 112.14 167.69 119.39Q170.57 126.64 170.57 135.37Q170.57 146.55 165.68 156.33Q160.79 166.12 152.05 173.45Q143.32 180.79 131.79 184.89Q120.26 189 106.81 189Q93.71 189 82.62 185.07Q71.53 181.14 63.23 174.06Q54.93 166.99 50.30 157.47Q45.67 147.95 45.67 136.77Q45.67 121.57 53.62 110.65Q61.57 99.74 75.19 96.42Q73.97 93.45 73.10 88.82Q72.22 84.19 72.22 80Q72.22 71.44 76.15 64.89Q80.08 58.34 87.07 54.67Q94.06 51 103.14 51"/></svg>
+</span>
+        <span class="marca__nome">
+          <span class="marca__linha">Rafael</span>
+          <span class="marca__sub">Advocacia</span>
+        </span>
+      </a>
+      <p class="rodape__frase">Direito claro, com o caminho explicado desde a primeira conversa.</p>
+      <a class="botao botao--claro" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
     </div>
-    <span class="dev">Site desenvolvido por <b>Jefferson Ramalho</b></span>
+
+    <div class="rodape__colunas">
+      <nav aria-label="Seções do site, no rodapé">
+        <h2 class="rotulo">Escritório</h2>
+        <ul>
+          <li><a class="rodape__elo" href="#sobre">Sobre o escritório</a></li>
+          <li><a class="rodape__elo" href="#equipe">Equipe</a></li>
+          <li><a class="rodape__elo" href="#artigos">Conteúdo</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="rotulo">Áreas de atuação</h2>
+        <ul class="rodape__areas">
+          <li><button class="rodape__elo" type="button" data-abre="painel" data-painel="area-previdenciario" aria-haspopup="dialog">Previdenciário</button></li>
+          <li><button class="rodape__elo" type="button" data-abre="painel" data-painel="area-consumidor" aria-haspopup="dialog">Consumidor</button></li>
+          <li><button class="rodape__elo" type="button" data-abre="painel" data-painel="area-civil" aria-haspopup="dialog">Cível</button></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="rotulo">Contato</h2>
+        <ul>
+          <li><a class="rodape__elo" href="https://wa.me/5588999280941?text=Ol%C3%A1!%20Quero%20falar%20com%20um%20advogado." target="_blank" rel="noopener" data-via="whats">(88) 99928-0941</a></li>
+          <li><a class="rodape__elo" href="https://instagram.com/rafaellc.adv" target="_blank" rel="noopener">@rafaellc.adv</a></li>
+          <li><a class="rodape__elo" href="mailto:raffael.advogado@gmail.com?subject=Quero%20falar%20com%20um%20advogado" data-via="email">raffael.advogado@gmail.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="rotulo">Endereço</h2>
+        <address>Mauriti, CE <br>Região do Cariri <br>Endereço: [preencher]</address>
+      </div>
+    </div>
+
+    <div class="rodape__pe">
+      <p>© 2026 Rafael Advocacia · OAB/CE 44.811 · Site desenvolvido por Jefferson Ramalho</p>
+      <a class="rodape__topo" href="#inicio">
+        <span>Voltar ao topo</span>
+        <span class="seta" aria-hidden="true"><span class="seta__ic"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span></span>
+      </a>
+    </div>
   </div>
 </footer>
 
-<div class="mobile-bar" aria-label="Contato rápido">
-  <a href="#areas">Áreas</a>
-  <a class="gold" href="#contato">Fale com o escritório</a>
-</div>
+  <!-- Menu: a folha que abre pelo botão redondo do topo, com todas as seções e os contatos. -->
+<dialog class="folha" id="menu" aria-label="Menu do site">
+  <div class="folha__fundo" data-fecha></div>
+  <div class="folha__painel menu s-noite" data-lenis-prevent>
+    <div class="menu__topo">
+      <span class="rotulo">Menu</span>
+      <button class="seta menu__fecha" type="button" data-fecha aria-label="Fechar o menu"><svg class="ic" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    </div>
+    <nav class="menu__nav" aria-label="Todas as seções">
+      <a href="#inicio"><span>Início</span></a>
+      <a href="#sobre"><span>Sobre o escritório</span></a>
+      <a href="#areas"><span>Áreas de atuação</span></a>
+      <a href="#equipe"><span>Equipe</span></a>
+      <a href="#artigos"><span>Conteúdo</span></a>
+      <a href="#contato"><span>Contato</span></a>
+    </nav>
+    <div class="menu__pe">
+      <a class="botao botao--claro" href="#contato">
+        <span class="botao__txt">Fale com o advogado</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+      <ul>
+        <li><a class="rodape__elo" href="https://wa.me/5588999280941">(88) 99928-0941</a></li>
+        <li><a class="rodape__elo" href="mailto:raffael.advogado@gmail.com?subject=Quero%20falar%20com%20um%20advogado" data-via="email">raffael.advogado@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+</dialog>
 
-<script>
-(function () {
-  const labels = { previdenciario: 'Previdenciário', consumidor: 'Consumidor', civel: 'Cível' };
-  let chosen = '';
-  const tabs = Array.from(document.querySelectorAll('.tab[role="tab"]'));
-  const chips = Array.from(document.querySelectorAll('.opt'));
+  <!-- Painel de leitura: a folha que abre com o detalhe de uma área ou com um artigo. O conteúdo de cada um mora
+     num <template data-painel="nome">; o botão que abre diz o nome em data-painel (src/motion/folha.js copia o
+     conteúdo para dentro do painel). Para uma área ou um artigo novo, copie um <template> e troque o nome. -->
+<dialog class="folha folha--leitura" id="painel" aria-label="Leitura">
+  <div class="folha__fundo" data-fecha></div>
+  <div class="folha__painel painel s-papel" data-lenis-prevent>
+    <button class="seta painel__fecha" type="button" data-fecha aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-fechar"/></svg></button>
+    <div class="painel__corpo" data-painel-corpo></div>
+  </div>
+</dialog>
 
-  function setArea(label) {
-    chosen = label;
-    chips.forEach(c => c.setAttribute('aria-pressed', c.dataset.val === label));
-    if (label) document.querySelector('#f-area .err').textContent = '';
-  }
-  function show(key, focus) {
-    tabs.forEach(t => {
-      const on = t.dataset.key === key;
-      t.setAttribute('aria-selected', on);
-      t.tabIndex = on ? 0 : -1;
-      if (on && focus) t.focus();
-    });
-    document.querySelectorAll('[data-panel]').forEach(p => {
-      const on = p.dataset.panel === key;
-      p.hidden = !on;
-      if (on) { p.classList.remove('anim'); void p.offsetWidth; p.classList.add('anim'); }
-    });
-    setArea(labels[key]);
-  }
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => show(t.dataset.key));
-    t.addEventListener('keydown', e => {
-      if (['ArrowRight', 'ArrowDown'].includes(e.key)) { e.preventDefault(); show(tabs[(i + 1) % tabs.length].dataset.key, true); }
-      if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); show(tabs[(i - 1 + tabs.length) % tabs.length].dataset.key, true); }
-    });
-  });
+<template data-painel="area-previdenciario">
+  <figure class="foto painel__foto"><img src="./img/area-trabalhista-960.webp" width="960" height="640" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Área de atuação</p>
+    <h2 class="painel__titulo">Previdenciário</h2>
+    <p class="texto">Benefícios do INSS negados, cortados ou calculados errado. Confere os dados no CNIS, organiza a prova e leva o pedido até o recurso ao CRPS ou à ação no Juizado Especial Federal.</p>
+    <h3 class="rotulo painel__sub">Do que cuidamos</h3>
+    <ul class="painel__lista">
+      <li>Conferência do CNIS e do tempo de contribuição</li>
+      <li>Auxílio por incapacidade e aposentadoria por invalidez</li>
+      <li>Aposentadoria e revisão de benefícios</li>
+      <li>Recurso ao CRPS, com prazo de 30 dias</li>
+      <li>Ação no Juizado Especial Federal</li>
+    </ul>
+    <div class="painel__quem">
+      <img src="./img/retrato-1-320.webp" width="320" height="400" alt="" decoding="async">
+      <p><strong>Dr. Rafael</strong><span>Advogado responsável pela área</span></p>
+    </div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Previdenciário">
+        <span class="botao__txt">Falar sobre esta área</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+    </div>
+  </div>
+</template>
 
-  document.querySelectorAll('.checklist').forEach(box => {
-    const boxes = Array.from(box.querySelectorAll('input'));
-    const count = box.querySelector('.count');
-    const bar = box.querySelector('.bar i');
-    const update = () => {
-      const done = boxes.filter(b => b.checked).length;
-      count.textContent = done + ' de ' + boxes.length;
-      bar.style.width = (done / boxes.length * 100) + '%';
-      boxes.forEach(b => b.closest('label').classList.toggle('done', b.checked));
-    };
-    boxes.forEach(b => b.addEventListener('change', update));
-    update();
-  });
+<template data-painel="area-consumidor">
+  <figure class="foto painel__foto"><img src="./img/area-empresarial-960.webp" width="960" height="640" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Área de atuação</p>
+    <h2 class="painel__titulo">Consumidor</h2>
+    <p class="texto">Cobranças e negativações indevidas, produto ou serviço com defeito e contrato que não foi cumprido. O prazo para ações por defeito, pelo Código de Defesa do Consumidor, é de 5 anos.</p>
+    <h3 class="rotulo painel__sub">Do que cuidamos</h3>
+    <ul class="painel__lista">
+      <li>Cobranças indevidas e negociação de dívidas</li>
+      <li>Nome negativado sem motivo</li>
+      <li>Produto ou serviço com defeito</li>
+      <li>Contrato não cumprido</li>
+      <li>Indenização por dano</li>
+    </ul>
+    <div class="painel__quem">
+      <img src="./img/retrato-1-320.webp" width="320" height="400" alt="" decoding="async">
+      <p><strong>Dr. Rafael</strong><span>Advogado responsável pela área</span></p>
+    </div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Consumidor">
+        <span class="botao__txt">Falar sobre esta área</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+    </div>
+  </div>
+</template>
 
-  chips.forEach(c => c.addEventListener('click', () => setArea(c.dataset.val)));
-  const nameI = document.getElementById('name');
-  const phoneI = document.getElementById('phone');
-  const msgI = document.getElementById('msg');
-  const out = document.getElementById('out');
-  const preview = document.getElementById('preview');
-  const wa = document.getElementById('wa');
-  const copy = document.getElementById('copy');
-  let text = '';
+<template data-painel="area-civil">
+  <figure class="foto painel__foto"><img src="./img/area-civil-960.webp" width="960" height="640" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Área de atuação</p>
+    <h2 class="painel__titulo">Cível</h2>
+    <p class="texto">Ações indenizatórias e regularização de imóveis, com a explicação de cada caminho antes de qualquer decisão. O prazo para reparação civil, pelo Código Civil, é de 3 anos.</p>
+    <h3 class="rotulo painel__sub">Do que cuidamos</h3>
+    <ul class="painel__lista">
+      <li>Ações indenizatórias por dano material e moral</li>
+      <li>Regularização de imóveis</li>
+      <li>Cobranças e contratos do dia a dia</li>
+    </ul>
+    <div class="painel__quem">
+      <img src="./img/retrato-1-320.webp" width="320" height="400" alt="" decoding="async">
+      <p><strong>Dr. Rafael</strong><span>Advogado responsável pela área</span></p>
+    </div>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Cível">
+        <span class="botao__txt">Falar sobre esta área</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+    </div>
+  </div>
+</template>
 
-  function setErr(id, msg) {
-    const f = document.getElementById(id);
-    f.classList.toggle('bad', !!msg);
-    f.querySelector('.err').textContent = msg;
-    return !msg;
-  }
-  phoneI.addEventListener('input', () => {
-    const d = phoneI.value.replace(/\D/g, '').slice(0, 11);
-    let v = d;
-    if (d.length > 2) v = '(' + d.slice(0, 2) + ') ' + d.slice(2);
-    if (d.length > 7) v = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
-    phoneI.value = v;
-    setErr('f-phone', '');
-  });
-  nameI.addEventListener('input', () => setErr('f-name', ''));
-  msgI.addEventListener('input', () => setErr('f-msg', ''));
+<template data-painel="artigo-civil">
+  <figure class="foto painel__foto"><img src="./img/artigo-civil-1280.webp" width="1280" height="720" alt="" decoding="async"></figure>
+  <div class="painel__texto">
+    <p class="rotulo">Artigo · Cível</p>
+    <h2 class="painel__titulo">Ato ilícito e o dever de reparar o dano</h2>
+    <p class="texto painel__abre">O Código Civil considera ato ilícito quem causa dano a outra pessoa, ainda que o dano seja exclusivamente moral. Quem pratica o ato fica obrigado a repará-lo.</p>
+    <h3 class="painel__parte">O que diz a lei</h3>
+    <p class="texto">O artigo 186 do Código Civil trata do ato ilícito. O artigo 927 diz que quem comete ato ilícito tem a obrigação de reparar o dano causado.</p>
+    <h3 class="painel__parte">O que fazer</h3>
+    <p class="texto">Guarde provas do dano, como documentos, mensagens e registros, e procure orientação antes de tomar qualquer decisão.</p>
+    <p class="painel__nota">Conteúdo informativo. Cada situação pede uma análise própria.</p>
+    <div class="acoes">
+      <a class="botao" href="#contato" data-assunto="Cível">
+        <span class="botao__txt">Tirar uma dúvida sobre o tema</span>
+        <span class="botao__seta"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg>
+</span>
+      </a>
+    </div>
+  </div>
+</template>
 
-  document.getElementById('lead').addEventListener('submit', e => {
-    e.preventDefault();
-    const a = setErr('f-area', chosen ? '' : 'Escolha uma área ou "Ainda não sei".');
-    const b = setErr('f-name', nameI.value.trim().length < 2 ? 'Informe seu nome.' : '');
-    const c = setErr('f-phone', phoneI.value.replace(/\D/g, '').length < 10 ? 'Informe o número com DDD.' : '');
-    const d = setErr('f-msg', msgI.value.trim().length < 15 ? 'Escreva pelo menos uma frase sobre o caso.' : '');
-    if (!(a && b && c && d)) {
-      out.classList.remove('show');
-      const bad = document.querySelector('.field.bad input, .field.bad textarea, #f-area .opt');
-      if (bad) bad.focus();
-      return;
-    }
-    text = 'Olá, Rafael. Meu nome é ' + nameI.value.trim() + '.\n' +
-      'Área: ' + chosen + '.\n' +
-      'WhatsApp: ' + phoneI.value + '.\n\n' +
-      'Caso: ' + msgI.value.trim();
-    preview.textContent = text;
-    wa.href = 'https://wa.me/5588999280941?text=' + encodeURIComponent(text);
-    copy.textContent = 'Copiar texto';
-    out.classList.add('show');
-  });
 
-  copy.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(text); copy.textContent = 'Texto copiado'; }
-    catch (err) { copy.textContent = 'Selecione e copie o texto acima'; }
-  });
-  // Brilho que segue o cursor nos blocos
-  document.querySelectorAll('.card, .panel, .contact-card, form.lead-form, .dl, .strip').forEach(el => {
-    el.classList.add('spot');
-    el.addEventListener('pointermove', e => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
-  // Foto da abertura acompanha o cursor (só com mouse)
-  const art = document.querySelector('.hero .art');
-  if (art && window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const img = art.querySelector('img');
-    art.addEventListener('pointermove', e => {
-      const r = art.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      img.style.transform = 'translateX(-50%) scale(1.05) translate(' + (-x * 16) + 'px, ' + (-y * 12) + 'px)';
-    });
-    art.addEventListener('pointerleave', () => { img.style.transform = ''; });
-  }
-})();
-</script>
-<script>
-(function () {
-  const POSTS = [
-    {
-      slug: 'inss-negou-beneficio',
-      cat: 'Previdenciário',
-      title: 'INSS negou o benefício: o que fazer primeiro',
-      excerpt: 'Leia a carta com calma, anote a data da ciência e reúna os documentos antes de recorrer.',
-      paras: [
-        'Quando o INSS nega um benefício, o primeiro passo é ler a carta de decisão com calma. Ela costuma informar o motivo da negativa, como falta de tempo de contribuição ou de perícia médica.',
-        'Anote a data em que você recebeu a carta. Em regra, o recurso ao Conselho de Recursos da Previdência Social (CRPS) tem prazo de 30 dias contados dessa ciência, mas o início da contagem e as exceções variam em cada caso.',
-        'Reúna os documentos que comprovam o que você alega, como carteira de trabalho, contribuições e laudos. Uma análise antes de recorrer ajuda a evitar erros de prazo e de pedido.'
-      ]
-    },
-    {
-      slug: 'nome-negativado',
-      cat: 'Consumidor',
-      title: 'Nome negativado sem dívida: quais provas guardar',
-      excerpt: 'Print da negativação, protocolo de reclamação e comprovantes são as primeiras provas a reunir.',
-      paras: [
-        'Quando uma negativação parece indevida, o primeiro passo é guardar as provas. Print da negativação ou da cobrança, a data em que você soube do problema e as mensagens com a empresa entram nessa lista.',
-        'Também vale registrar reclamação no SAC da empresa e, se não resolver, no Procon. O protocolo dessas reclamações é uma prova útil de que você buscou solução antes de ir à Justiça.',
-        'Cada caso tem particularidades. A análise do seu caso mostra se há caminho para retirar o nome dos órgãos de proteção ao crédito e se cabe pedido de indenização.'
-      ]
-    },
-    {
-      slug: 'prazos-cobrar-justica',
-      cat: 'Cível',
-      title: 'Quanto tempo para cobrar na Justiça?',
-      excerpt: 'Os prazos mudam conforme o tipo de pedido. Veja os mais comuns e como eles começam a contar.',
-      paras: [
-        'Os prazos mudam conforme o tipo de pedido. Em regra, a ação por defeito de produto ou serviço tem prazo de 5 anos, conforme o Código de Defesa do Consumidor (art. 27).',
-        'Já o pedido de indenização por reparação civil costuma ter prazo de 3 anos, pelo Código Civil (art. 206, §3º, V). Para cobranças de dívidas em geral, o prazo costuma ser de 10 anos (art. 205).',
-        'Esses números são uma orientação geral. O início da contagem pode mudar conforme a data do fato, do vencimento ou da ciência do problema.'
-      ]
-    }
-  ];
-
-  const list = document.getElementById('blog-list');
-  const head = document.querySelector('#blog .blog-head');
-  const view = document.getElementById('post-view');
-  list.innerHTML = POSTS.map(p =>
-    '<article class="blog-card"><span class="pill">' + p.cat + '</span><h3>' + p.title + '</h3><p>' + p.excerpt + '</p><a href="#post/' + p.slug + '">Ler artigo ↗</a></article>'
-  ).join('');
-
-  function render() {
-    const hash = location.hash;
-    const post = POSTS.find(p => hash === '#post/' + p.slug);
-    if (post) {
-      head.hidden = true;
-      list.hidden = true;
-      view.hidden = false;
-      document.getElementById('post-cat').textContent = post.cat;
-      document.getElementById('post-title').textContent = post.title;
-      document.getElementById('post-body').innerHTML = post.paras.map(t => '<p>' + t + '</p>').join('');
-      document.getElementById('blog').scrollIntoView();
-    } else {
-      head.hidden = false;
-      list.hidden = false;
-      view.hidden = true;
-    }
-  }
-  window.addEventListener('hashchange', render);
-  render();
-})();
-</script>
 </body>
 </html>

@@ -50,3 +50,6 @@
   .equipe__numeros li { padding: 0 calc(18 * var(--su)); gap: calc(8 * var(--su)); }
   .equipe__numeros .rotulo { letter-spacing: 0.16em; font-size: 11px; }
 }
+
+/* botão que abre a trajetória completa no painel de leitura */
+.equipe__leia { margin-top: calc(18 * var(--su)); background: none; border: 0; padding: 0; cursor: pointer; color: inherit; font: inherit; }
